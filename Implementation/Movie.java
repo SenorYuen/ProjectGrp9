@@ -17,7 +17,7 @@ public class Movie {
         this.name = name;
         this.length = length;
         this.start_showing = start_showing;
-        this.end_showing = end_showing;
+        this.end_showing = end_String;
     }
 
 
