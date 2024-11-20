@@ -1,3 +1,11 @@
+/*
+* File Name: Ticket.java
+* Assignment: Final Project
+* Lab section: B02
+* Completed by: Adam Yuen
+* Development Date: November 19, 2024
+*/
+
 package Implementation;
 
 public class Ticket {

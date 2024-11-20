@@ -1,5 +1,5 @@
 /*
-* File Name: BorderDecorator.java
+* File Name: Admin.java
 * Assignment: Final Project
 * Lab section: B02
 * Completed by: Adam Yuen
