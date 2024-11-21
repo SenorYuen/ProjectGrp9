@@ -23,8 +23,15 @@ public class Theater{
     public ArrayList<Movie> getCatalog(){
         return catalog;
     }
+    public String getLocation() {
+        return location;
+    }
 
-    
-
+    public void setCatalog(ArrayList<Movie> selectedCatalog) {
+        this.catalog = selectedCatalog;
+    }
+    public void setLocation (String selectedLocation) {
+        this.location = selectedLocation;
+    }
 
 }

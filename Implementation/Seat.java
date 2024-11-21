@@ -30,7 +30,7 @@ public class Seat{
         this.row = newRow;
     }
 
-    public String column(){
+    public String getColumn(){
         return column;
     }
 
@@ -46,6 +46,6 @@ public class Seat{
         this.taken = newStatus;
     }
 
-    
+
 
 }
