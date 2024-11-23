@@ -40,12 +40,17 @@ public class Showtime {
 	}
 
 	public Showtime(String day, String month, int year, String time) {
+		/**
+		 * I assume this will be saved to the database if not then 
+		 * we need a way to ensure the following:
+		 * MONTH is a valid month
+		 * DAY is a valid day depending on the month
+		 * maybe ensure YEAR is a 4 digit number
+		 */
 		this.day = day;
 		this.month = month;
 		this.year = year;
 		this.time = time;
-
-
 	}
 
 }

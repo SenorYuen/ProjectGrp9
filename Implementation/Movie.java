@@ -9,50 +9,49 @@ package Implementation;
 public class Movie {
     private String name;
     private int length;
-    private String start_showing;
-    private String end_showing;
+    private Showtime start_showing;
+    private Showtime end_showing;
 
     // Constructor
-    public Movie(String name, int length, String start_showing, String end_String){
+    public Movie(String name, int length, String startDay, String startMonth, int startYear, String startTime,
+                String endDay, String endMonth, int endYear, String endTime) {
         this.name = name;
         this.length = length;
-        this.start_showing = start_showing;
-        this.end_showing = end_String;
+        this.start_showing = new Showtime(startDay, startMonth, startYear, startTime);
+        this.end_showing = new Showtime(endDay, endMonth, endYear, endTime);
     }
 
-
     // GETTERS and SETTERS
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(String newName){
+    public void setName(String newName) {
         this.name = newName;
     }
 
-    public int getLength(){
+    public int getLength() {
         return length;
     }
 
-    public void setLength(int newLength){
+    public void setLength(int newLength) {
         this.length = newLength;
     }
 
-    public String getStartShowing(){
+    public String getStartShowing() {
         return start_showing;
     }
 
-    public void setStartShowing(String newStartShowing){
+    public void setStartShowing(String newStartShowing) {
         this.start_showing = newStartShowing;
     }
 
-    public String getEndShowing(){
+    public String getEndShowing() {
         return end_showing;
     }
 
-    public void setEndShowing(String newEndShowing){
+    public void setEndShowing(String newEndShowing) {
         this.end_showing = newEndShowing;
     }
-
 
 }

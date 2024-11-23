@@ -11,6 +11,23 @@ package Implementation;
 public class Payment {
     private String paymentDate;
     private String paymentMethod;
+    private Ticket ticket;
+
+    // Constructor
+    public Payment(String paymentDate, String paymentMethod, Ticket ticket){
+        this.paymentDate = paymentDate;
+        this.paymentMethod = paymentMethod;
+        this.ticket = ticket;
+    }
+
+    // GETTERS and SETTERS
+    public Ticket getTicket(){
+        return this.ticket;
+    }
+
+    public void setTicket(Ticket ticket){
+        this.ticket = ticket;
+    }
 
     public String getPaymentDate() {
         return this.paymentDate;
@@ -27,5 +44,7 @@ public class Payment {
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
+
+    // end of GETTERS and SETTERS
 
 }

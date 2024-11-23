@@ -8,15 +8,19 @@
 
 package Implementation;
 
-public class RegisteredCustomer {
+import java.time.LocalDate;
+
+public class RegisteredCustomer implements Person{
     private String name;
     private String email;
     private String password;
     private String address;
+    private Ticket ticket;
     private int cardNumber;
     private int accountNumber;
     private int dateCreated;
 
+    // GETTERS and SETTERS
     public String getName() {
         return this.name;
     }
@@ -31,6 +35,10 @@ public class RegisteredCustomer {
 
     public String getAddress() {
         return this.address;
+    }
+
+    public Ticket getTicket(){
+        return this.ticket;
     }
 
     public int getCardNumber() {
@@ -61,6 +69,10 @@ public class RegisteredCustomer {
         this.address = address;
     }
 
+    public void setTicket(Ticket ticket){
+        this.ticket = ticket;
+    }
+
     public void setCardNumber(int cardNumber) {
         this.cardNumber = cardNumber;
     }
@@ -72,5 +84,21 @@ public class RegisteredCustomer {
     public void setDateCreated(int dateCreated) {
         this.dateCreated = dateCreated;
     }
+
+    // End of GETTERS and SETTERS
+
+    @Override
+    public Receipt makePayment(double amount){
+        Ticket ticket = getTicket();
+
+        Payment payment = new Payment(
+            LocalDate.now().toString(), // payment date
+            "Credit Card", //payment method
+            ticket                        // ticket paid for
+        );
+
+        Receipt receipt = new Receipt(amount, payment);
+    }
+
 
 }
