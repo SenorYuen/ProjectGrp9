@@ -12,12 +12,14 @@ public class Payment {
     private String paymentDate;
     private String paymentMethod;
     private Ticket ticket;
+    private Receipt receipt;
 
     // Constructor
-    public Payment(String paymentDate, String paymentMethod, Ticket ticket){
+    public Payment(String paymentDate, double amountPaid, String paymentMethod, Ticket ticket){
         this.paymentDate = paymentDate;
         this.paymentMethod = paymentMethod;
         this.ticket = ticket;
+        this.receipt = new Receipt(paymentDate, amountPaid);
     }
 
     // GETTERS and SETTERS
@@ -35,6 +37,10 @@ public class Payment {
 
     public String getPaymentMethod() {
         return this.paymentMethod;
+    }
+
+    public Receipt getReceipt(){
+        return this.receipt;
     }
 
     public void setPaymentDate(String paymentDate) {

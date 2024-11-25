@@ -9,6 +9,7 @@
 package Implementation;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class RegisteredCustomer implements Person{
     private String name;
@@ -88,16 +89,32 @@ public class RegisteredCustomer implements Person{
     // End of GETTERS and SETTERS
 
     @Override
-    public Receipt makePayment(double amount){
+    public Receipt makePayment(double amountPaid){
         Ticket ticket = getTicket();
 
         Payment payment = new Payment(
             LocalDate.now().toString(), // payment date
+            amountPaid,
             "Credit Card", //payment method
             ticket                        // ticket paid for
         );
 
-        Receipt receipt = new Receipt(amount, payment);
+        return payment.getReceipt();
+    }
+
+    @Override
+    public ArrayList<Movie> browseCatalog(Theater theater){
+        return theater.getCatalog();
+    }
+
+    @Override
+    public Ticket pickSeat(Theater theater){
+        // I figure this function should allow the customer to view the seat map and 
+        // make a purchase of the seat
+        ArrayList<Seat> seatMap = theater.getSeatMap();
+        // probably need some kinda observer pattern i think to display this
+
+        
     }
 
 

@@ -5,5 +5,8 @@ public class Receipt {
     private String issueDate;
 
     // Constructor
-    public Receipt(double totalAmount, String issueDate){}
+    public Receipt(String issueDate, double totalAmount){
+        this.totalAmount = totalAmount;
+        this.issueDate = issueDate;
+    }
 }

@@ -7,6 +7,8 @@
 */
 package Implementation;
 
+import java.util.ArrayList;
+
 public class Admin {
     private String name;
     private String email;
@@ -35,6 +37,21 @@ public class Admin {
     public void setPassword(String desiredPassword) {
         this.password = desiredPassword;
     }
+
+    public void updateMovie(Movie movie, Theater theater){
+        /* this function is designed so that the new movie object is already
+            made which i dont know if that's how we want to design it like that 
+        */ 
+        ArrayList<Movie> catalog = theater.getCatalog();
+
+        catalog.add(movie);
+    }
+
+    public void removeMovie(Movie movie, Theater theater){
+        ArrayList<Movie> catalog = theater.getCatalog();
+        catalog.remove(movie);
+    }
+
 
     Admin() {
         this.name = "Default";
