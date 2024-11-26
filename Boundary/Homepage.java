@@ -1,13 +1,8 @@
 package Boundary;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.SwingConstants;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class Homepage extends JPanel {
     private JLabel theaterTitle;
@@ -17,9 +12,11 @@ public class Homepage extends JPanel {
     private JLabel signUpButton;
     private JLabel loginLabel;
     private JLabel passwordLabel;
+    private JLabel guestBypassLabel;
+    private JLabel developerNote;
     private static final long serialVersionUID = 1L;
 
-    public Homepage() {
+    public Homepage(JFrame mainWindow) {
         // Label creation for the homepage
         theaterTitle = new JLabel("I AM NOT RACIST (change title later)");
         theaterTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -33,7 +30,7 @@ public class Homepage extends JPanel {
         loginLabel.setHorizontalAlignment(SwingConstants.CENTER);
         loginLabel.setForeground(Color.BLACK);
         loginLabel.setFont(new Font("Calibri", Font.PLAIN, 21));
-        loginLabel.setBounds(520, 125, 350, 30);
+        loginLabel.setBounds(520, 125, 400, 30);
         add(loginLabel);
 
         // Text field entry creation for username
@@ -41,7 +38,7 @@ public class Homepage extends JPanel {
         loginBox.setHorizontalAlignment(SwingConstants.CENTER);
         loginBox.setForeground(Color.BLACK);
         loginBox.setBackground(Color.GRAY);
-        loginBox.setBounds(515, 150, 400, 30);
+        loginBox.setBounds(520, 150, 400, 30);
         add(loginBox);
 
         // Label creation for the password text field
@@ -56,7 +53,7 @@ public class Homepage extends JPanel {
         passwordBox = new JPasswordField();
         passwordBox.setForeground(Color.BLACK);
         passwordBox.setBackground(Color.GRAY);
-        passwordBox.setBounds(515, 225, 400, 30);
+        passwordBox.setBounds(520, 225, 400, 30);
         add(passwordBox);
 
         // Login/submit button creation
@@ -64,7 +61,7 @@ public class Homepage extends JPanel {
         submitLoginButton.setHorizontalAlignment(SwingConstants.CENTER);
         submitLoginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         submitLoginButton.setFont(new Font("Calibri", Font.PLAIN, 23));
-        submitLoginButton.setBounds(515, 260, 400, 30);
+        submitLoginButton.setBounds(520, 260, 400, 30);
         submitLoginButton.setForeground(Color.BLACK);
         add(submitLoginButton);
 
@@ -73,9 +70,35 @@ public class Homepage extends JPanel {
         signUpButton.setHorizontalAlignment(SwingConstants.CENTER);
         signUpButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         signUpButton.setFont(new Font("Calibri", Font.PLAIN, 23));
-        signUpButton.setBounds(515, 320, 400, 30);
+        signUpButton.setBounds(520, 320, 400, 30);
         signUpButton.setForeground(Color.BLACK);
         add(signUpButton);
+
+        // Guest bypass button for guest users
+        guestBypassLabel = new JLabel("Continue Without Signing In");
+        guestBypassLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        guestBypassLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        guestBypassLabel.setFont(new Font("Calibri", Font.PLAIN, 23));
+        guestBypassLabel.setBounds(520, 380, 400, 30);
+        guestBypassLabel.setForeground(Color.BLACK);
+        add(guestBypassLabel);
+
+        // Developer note added
+        developerNote = new JLabel("Developed by: Arsalan Khaleel, Fahmi Sardar, Zaid Shaikh, Adam Yuen");
+        developerNote.setHorizontalAlignment(SwingConstants.CENTER);
+        developerNote.setForeground(Color.BLACK);
+        developerNote.setFont(new Font("Calibri", Font.PLAIN, 12));
+        developerNote.setBounds(520, 650, 400, 30);
+        add(developerNote);
+
+        signUpButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Registration registerPanel = new Registration(mainWindow);
+				mainWindow.setContentPane(registerPanel);
+				mainWindow.revalidate();
+			}
+		});
 
         setVisible(true);
     }
