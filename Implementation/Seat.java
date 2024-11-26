@@ -10,15 +10,15 @@ public class Seat{
     private String row;
     private String column;
     private boolean taken;
-
+    private double price;
 
     // Constructor
-    public Seat(String row, String column, boolean taken){
+    public Seat(String row, String column, boolean taken, double price){
         this.row = row;
         this.column = column;
         this.taken = taken;
+        this.price = price;
     }
-
 
 
     // GETTERS and SETTERS
@@ -46,6 +46,13 @@ public class Seat{
         this.taken = newStatus;
     }
 
+    public double getPrice(){
+        return this.price;
+    }
+
+    public void setPrice(double newPrice){
+        this.price = newPrice;
+    }
 
 
 }

@@ -13,7 +13,6 @@ public class Ticket {
     private Movie movie;
     private Theater theater;
 
-
     // Constructor
     public Ticket(Seat seat, Movie movie, Theater theater){
         this.seat = seat;
@@ -45,5 +44,7 @@ public class Ticket {
     public void setTheater(Theater theater){
         this.theater = theater;
     }
+    
+
 
 }

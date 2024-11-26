@@ -9,6 +9,7 @@
 package Implementation;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class RegisteredCustomer implements Person{
     private String name;
@@ -88,16 +89,30 @@ public class RegisteredCustomer implements Person{
     // End of GETTERS and SETTERS
 
     @Override
-    public Receipt makePayment(double amount){
-        Ticket ticket = getTicket();
+    public Receipt makePayment(Theater theater, Movie movieChosen, Seat seatChosen, double amountPaid){
+        /* Purpose of this function is to allow the user to purchase a ticket
+         * REQURIES: The THEATER the MOVIE is playing along with the SEAT the user chose and the AMOUNT_PAID
+         * RETURNS: a Receipt confirming that the user bought it; Must also change seat status
+         */
 
-        Payment payment = new Payment(
-            LocalDate.now().toString(), // payment date
-            "Credit Card", //payment method
-            ticket                        // ticket paid for
+        Ticket ticket = new Ticket(seatChosen, movieChosen, theater);
+
+        Payment paymentMade = new Payment(
+            LocalDate.now().toString(),
+            amountPaid,
+            "Credit Card",
+            ticket
         );
 
-        Receipt receipt = new Receipt(amount, payment);
+        // This function should probably call the sendReceipt() function too but thats a later issue
+        return paymentMade.getReceipt();
+
+    }
+
+    @Override
+    public ArrayList<Movie> browseCatalog(Theater theater){
+        // This function is just for retriving the theater's movie library
+        return theater.getCatalog();
     }
 
 
