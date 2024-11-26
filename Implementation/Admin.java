@@ -52,7 +52,8 @@ public class Admin {
         catalog.remove(movie);
     }
 
-
+    // Constructor
+    // TODO: ensure there's one copy only --> Singleton?
     Admin() {
         this.name = "Default";
         this.email = "Default";

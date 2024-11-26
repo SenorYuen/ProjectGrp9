@@ -19,7 +19,16 @@ public class Payment {
         this.paymentDate = paymentDate;
         this.paymentMethod = paymentMethod;
         this.ticket = ticket;
-        this.receipt = new Receipt(paymentDate, amountPaid);
+        this.receipt = new Receipt(
+            amountPaid,
+            paymentDate,
+            ticket.getMovie().getName(),
+            ticket.getSeat().getRow(),
+            ticket.getSeat().getColumn()
+        );
+
+        // When payment is made that means that the seat is taken
+        ticket.getSeat().setTaken(true);
     }
 
     // GETTERS and SETTERS
@@ -52,5 +61,15 @@ public class Payment {
     }
 
     // end of GETTERS and SETTERS
+
+
+    public void sendReceipt(String email){
+        // This version will be used for non registered users
+        
+    }
+
+    public void sendReceipt(Person person){
+        // this version will be used for registered users and requires us to fetch their email
+    }   
 
 }

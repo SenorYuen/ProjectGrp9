@@ -27,4 +27,8 @@ public class RegularCustomer {
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
     }
+
+
+    @Override
+
 }

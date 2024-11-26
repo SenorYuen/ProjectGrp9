@@ -38,20 +38,22 @@ public class Movie {
         this.length = newLength;
     }
 
-    public String getStartShowing() {
+    public Showtime getStartShowing() {
         return start_showing;
     }
 
-    public void setStartShowing(String newStartShowing) {
+    public void setStartShowing(Showtime newStartShowing) {
         this.start_showing = newStartShowing;
     }
 
-    public String getEndShowing() {
+    public Showtime getEndShowing() {
         return end_showing;
     }
 
-    public void setEndShowing(String newEndShowing) {
+    public void setEndShowing(Showtime newEndShowing) {
         this.end_showing = newEndShowing;
     }
+
+    // end of GETTERS and SETTERS
 
 }
