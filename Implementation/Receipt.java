@@ -4,19 +4,17 @@ public class Receipt {
     private double amountPaid;
     private String issueDate;
     private String movieName;
-    private String rowNumber;
-    private String columnNumber;
+    private int seatNumber;
     private int id;
 
     static private int idCounter = 1000;
 
     // Constructor
-    public Receipt(double amountPaid, String issueDate, String movieName, String rowNumber, String columnNumber){
+    public Receipt(double amountPaid, String issueDate, String movieName, int seatNumber){
         this.amountPaid = amountPaid;
         this.issueDate = issueDate;
         this.movieName = movieName;
-        this.rowNumber = rowNumber;
-        this.columnNumber = columnNumber;
+        this.seatNumber = seatNumber;
         this.id = ++idCounter;
     }
 
@@ -52,24 +50,8 @@ public class Receipt {
         this.movieName = movieName;
     }
 
-    // Getter and Setter for rowNumber
-    public String getRowNumber() {
-        return rowNumber;
+    public int getSeatNumber(){
+        return seatNumber;
     }
-
-    public void setRowNumber(String rowNumber) {
-        this.rowNumber = rowNumber;
-    }
-
-    // Getter and Setter for columnNumber
-    public String getColumnNumber() {
-        return columnNumber;
-    }
-
-    public void setColumnNumber(String columnNumber) {
-        this.columnNumber = columnNumber;
-    }
-
-
 
 }

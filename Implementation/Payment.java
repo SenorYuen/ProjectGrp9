@@ -23,8 +23,7 @@ public class Payment {
             amountPaid,
             paymentDate,
             ticket.getMovie().getName(),
-            ticket.getSeat().getRow(),
-            ticket.getSeat().getColumn()
+            ticket.getSeat().getSeatNumber()
         );
 
         // When payment is made that means that the seat is taken
