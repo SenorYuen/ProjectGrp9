@@ -16,19 +16,15 @@ public class RegisteredCustomer implements Person{
     private String email;
     private String password;
     private String address;
-    private Ticket ticket;
     private int cardNumber;
-    private int accountNumber;
 
     // Constructor
-    public RegisteredCustomer(String name, String email, String password, String address, Ticket ticket, int cardNumber, int accountNumber) {
+    public RegisteredCustomer(String name, String email, String password, String address, int cardNumber) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.address = address;
-        this.ticket = ticket;
         this.cardNumber = cardNumber;
-        this.accountNumber = accountNumber;
     }
 
     // GETTERS and SETTERS
@@ -48,18 +44,9 @@ public class RegisteredCustomer implements Person{
         return this.address;
     }
 
-    public Ticket getTicket(){
-        return this.ticket;
-    }
-
     public int getCardNumber() {
         return this.cardNumber;
     }
-
-    public int getAccountNumber() {
-        return this.accountNumber;
-    }
-
 
     public void setName(String desiredName) {
         this.name = desiredName;
@@ -77,16 +64,8 @@ public class RegisteredCustomer implements Person{
         this.address = address;
     }
 
-    public void setTicket(Ticket ticket){
-        this.ticket = ticket;
-    }
-
     public void setCardNumber(int cardNumber) {
         this.cardNumber = cardNumber;
-    }
-
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
     }
 
     // End of GETTERS and SETTERS

@@ -38,7 +38,8 @@ public class Admin {
         this.password = desiredPassword;
     }
 
-    public void updateMovie(Movie movie, Theater theater){
+    // I dunno if we should add a check if the movie isn't already added
+    public void addMovie(Movie movie, Theater theater){
         /* this function is designed so that the new movie object is already
             made which i dont know if that's how we want to design it like that 
         */ 
@@ -47,10 +48,20 @@ public class Admin {
         catalog.add(movie);
     }
 
-    public void removeMovie(Movie movie, Theater theater){
+    /**
+     * 
+     * @param movieRemoved the movie the admin wants to remove
+     * @param theater
+     */
+    public void removeMovie(Movie movieRemoved, Theater theater){
         ArrayList<Movie> catalog = theater.getCatalog();
-        catalog.remove(movie);
+        for(Movie movie : catalog){
+            if(movie.getName() == movieRemoved.getName()){
+                catalog.remove(movie);
+            }
+        }
     }
+
 
     // Constructor
     // TODO: ensure there's one copy only --> Singleton?

@@ -7,35 +7,25 @@ package Implementation;
 */
 
 public class Seat{
-    private String row;
-    private String column;
+    private int seatNumber;
     private boolean taken;
     private double price;
 
     // Constructor
-    public Seat(String row, String column, boolean taken, double price){
-        this.row = row;
-        this.column = column;
+    public Seat(int seatNumber, boolean taken, double price){
+        this.seatNumber = seatNumber;
         this.taken = taken;
         this.price = price;
     }
 
 
     // GETTERS and SETTERS
-    public String getRow(){
-        return row;
+    public int getSeatNumber(){
+        return this.seatNumber;
     }
 
-    public void setRow(String newRow){
-        this.row = newRow;
-    }
-
-    public String getColumn(){
-        return column;
-    }
-
-    public void setColumn(String newColumn){
-        this.column = newColumn;
+    public void setSeatNumber(int newSeatNumber){
+        this.seatNumber = newSeatNumber;
     }
 
     public boolean getTaken(){

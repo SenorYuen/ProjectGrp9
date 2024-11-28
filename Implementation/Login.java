@@ -1,7 +1,12 @@
 package Implementation;
 
 public class Login {
-    
+    private Theater theater;
+
+
+    public Theater getTheater(){
+        return theater;
+    }
     /**
      * 
      * @param userEmail the email the user typed into the login page

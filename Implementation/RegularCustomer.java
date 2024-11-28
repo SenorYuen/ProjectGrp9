@@ -13,12 +13,10 @@ import java.util.ArrayList;
 
 public class RegularCustomer implements Person{
     private String email;
-    private Ticket ticket;
 
     // Constructor
-    public RegularCustomer(String email, Ticket ticket){
+    public RegularCustomer(String email){
         this.email = email;
-        this.ticket = ticket;
     }
 
     // GETTERS and SETTERS
@@ -26,16 +24,8 @@ public class RegularCustomer implements Person{
         return this.email;
     }
 
-    public Ticket getTicket() {
-        return this.ticket;
-    }
-
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
     }
 
     @Override

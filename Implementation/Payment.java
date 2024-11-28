@@ -60,16 +60,6 @@ public class Payment {
         this.paymentMethod = paymentMethod;
     }
 
-    // end of GETTERS and SETTERS
-
-
-    public void sendReceipt(String email){
-        // This version will be used for non registered users
-        
-    }
-
-    public void sendReceipt(Person person){
-        // this version will be used for registered users and requires us to fetch their email
-    }   
+    // end of GETTERS and SETTERS 
 
 }
