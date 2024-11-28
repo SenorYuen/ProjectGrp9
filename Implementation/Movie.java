@@ -1,5 +1,7 @@
 package Implementation;
 
+import java.util.ArrayList;
+
 /*
     File Name: Movie.java
     Completed by: Fahmi Sardar
@@ -9,16 +11,13 @@ package Implementation;
 public class Movie {
     private String name;
     private int length;
-    private Showtime start_showing;
-    private Showtime end_showing;
+    private ArrayList<Date> showtimes;
 
     // Constructor
-    public Movie(String name, int length, String startDay, String startMonth, int startYear, String startTime,
-                String endDay, String endMonth, int endYear, String endTime) {
+    public Movie(String name, int length, ArrayList<Date> showtimes) {
         this.name = name;
         this.length = length;
-        this.start_showing = new Showtime(startDay, startMonth, startYear, startTime);
-        this.end_showing = new Showtime(endDay, endMonth, endYear, endTime);
+        this.showtimes = showtimes;
     }
 
     // GETTERS and SETTERS
@@ -38,20 +37,12 @@ public class Movie {
         this.length = newLength;
     }
 
-    public Showtime getStartShowing() {
-        return start_showing;
+    public ArrayList<Date> getShowtimes(){
+        return this.showtimes;
     }
 
-    public void setStartShowing(Showtime newStartShowing) {
-        this.start_showing = newStartShowing;
-    }
-
-    public Showtime getEndShowing() {
-        return end_showing;
-    }
-
-    public void setEndShowing(Showtime newEndShowing) {
-        this.end_showing = newEndShowing;
+    public void setShowtimes(ArrayList<Date> newShowtimes){
+        this.showtimes = newShowtimes;
     }
 
     // end of GETTERS and SETTERS
