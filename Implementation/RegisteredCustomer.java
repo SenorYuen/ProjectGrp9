@@ -19,7 +19,17 @@ public class RegisteredCustomer implements Person{
     private Ticket ticket;
     private int cardNumber;
     private int accountNumber;
-    private int dateCreated;
+
+    // Constructor
+    public RegisteredCustomer(String name, String email, String password, String address, Ticket ticket, int cardNumber, int accountNumber) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.ticket = ticket;
+        this.cardNumber = cardNumber;
+        this.accountNumber = accountNumber;
+    }
 
     // GETTERS and SETTERS
     public String getName() {
@@ -50,9 +60,6 @@ public class RegisteredCustomer implements Person{
         return this.accountNumber;
     }
 
-    public int getDateCreated() {
-        return this.dateCreated;
-    }
 
     public void setName(String desiredName) {
         this.name = desiredName;
@@ -82,10 +89,6 @@ public class RegisteredCustomer implements Person{
         this.accountNumber = accountNumber;
     }
 
-    public void setDateCreated(int dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
     // End of GETTERS and SETTERS
 
     @Override
@@ -106,7 +109,6 @@ public class RegisteredCustomer implements Person{
 
         // This function should probably call the sendReceipt() function too but thats a later issue
         return paymentMade.getReceipt();
-
     }
 
     @Override
