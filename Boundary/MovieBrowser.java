@@ -134,8 +134,12 @@ public class MovieBrowser extends JPanel{
             // Prompt the user to enter their article name and store it in the 'name' variable
             String name = JOptionPane.showInputDialog("Enter Ticket Number to Cancel: ");
                     
-            // Create a JOptionPane to display a message with a personalized greeting
-            JOptionPane.showMessageDialog(null, "Cancelled or not, depending on time");
+            if (name == null) {
+                return;
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Cancelled or not, depending on time");
+            }
 			}
 		});
 
