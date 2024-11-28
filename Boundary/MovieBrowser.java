@@ -18,6 +18,8 @@ public class MovieBrowser extends JPanel{
     private JLabel currentTheater;
     private JComboBox<String> showtimeSelector;
     private JLabel showtimeLabel;
+    private JLabel cancelTicketLabel;
+    private JLabel developerNote;
 
     MovieBrowser(JFrame mainWindow) {
         setLayout(null);
@@ -38,12 +40,21 @@ public class MovieBrowser extends JPanel{
         backButton.setForeground(Color.BLACK);
         add(backButton);
 
+        // Creating a ticket cancellation button
+        cancelTicketLabel = new JLabel("Cancel Ticket");
+        cancelTicketLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        cancelTicketLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        cancelTicketLabel.setFont(new Font("Calibri", Font.PLAIN, 23));
+        cancelTicketLabel.setBounds(1100, 20, 200, 30);
+        cancelTicketLabel.setForeground(Color.BLACK);
+        add(cancelTicketLabel);
+
         // Current theater label creation
         currentTheater = new JLabel("Current Theater: ICT 028");
         currentTheater.setHorizontalAlignment(SwingConstants.CENTER);
         currentTheater.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         currentTheater.setFont(new Font("Calibri", Font.PLAIN, 23));
-        currentTheater.setBounds(-20, 40, 400, 30);
+        currentTheater.setBounds(515, 40, 400, 30);
         currentTheater.setForeground(Color.BLACK);
         add(currentTheater);
 
@@ -99,6 +110,14 @@ public class MovieBrowser extends JPanel{
         submitSeatSelection.setBounds(515, 640, 400, 30);
         add(submitSeatSelection);
 
+        // Creation of a developer note
+        developerNote = new JLabel("Developed by: Arsalan Khaleel, Fahmi Sardar, Zaid Shaikh, Adam Yuen");
+        developerNote.setHorizontalAlignment(SwingConstants.CENTER);
+        developerNote.setForeground(Color.BLACK);
+        developerNote.setFont(new Font("Calibri", Font.PLAIN, 12));
+        developerNote.setBounds(520, 700, 400, 30);
+        add(developerNote);
+
         // Add back button functionality
         backButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -108,6 +127,38 @@ public class MovieBrowser extends JPanel{
 				mainWindow.revalidate();
 			}
 		});
+
+        cancelTicketLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+            // Prompt the user to enter their article name and store it in the 'name' variable
+            String name = JOptionPane.showInputDialog("Enter Ticket Number to Cancel: ");
+                    
+            // Create a JOptionPane to display a message with a personalized greeting
+            JOptionPane.showMessageDialog(null, "Cancelled or not, depending on time");
+			}
+		});
+
+        submitSeatSelection.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int choice = JOptionPane.showConfirmDialog(null, "wtf",
+				"Confirm Purchase?", JOptionPane.YES_NO_CANCEL_OPTION);
+
+            // Check the user's choice and display a corresponding message
+            if (choice == JOptionPane.YES_OPTION) {
+                // If the user chose 'Yes', show a message indicating that changes are saved
+                JOptionPane.showMessageDialog(null, "Changes saved.");
+            } else if (choice == JOptionPane.NO_OPTION) {
+                // If the user chose 'No', show a message indicating that changes are not saved
+                JOptionPane.showMessageDialog(null, "Changes not saved.");
+            } else {
+                // If the user chose 'Cancel' or closed the dialog, show a message indicating the operation is canceled
+                JOptionPane.showMessageDialog(null, "Operation canceled.");
+            }
+            }
+        });
+        
 
         setVisible(true);
     }

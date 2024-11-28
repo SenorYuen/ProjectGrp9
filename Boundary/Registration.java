@@ -15,6 +15,9 @@ public class Registration extends JPanel {
     private JLabel signUpButton;
     private JLabel backButton;
     private JLabel developerNote;
+    private JLabel cardLabel;
+    private JTextField cardField;
+
     private static final long serialVersionUID = 1L;
 
     public Registration(JFrame mainWindow) {
@@ -78,9 +81,25 @@ public class Registration extends JPanel {
         signUpButton.setHorizontalAlignment(SwingConstants.CENTER);
         signUpButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         signUpButton.setFont(new Font("Calibri", Font.PLAIN, 23));
-        signUpButton.setBounds(520, 330, 400, 30);
+        signUpButton.setBounds(520, 425, 400, 30);
         signUpButton.setForeground(Color.BLACK);
         add(signUpButton);
+
+        // Card Info Label
+        cardLabel = new JLabel("Enter Card Info");
+        cardLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        cardLabel.setForeground(Color.BLACK);
+        cardLabel.setFont(new Font("Calibri", Font.PLAIN, 21));
+        cardLabel.setBounds(520, 350, 400, 30);
+        add(cardLabel);
+
+        // Card Field creation:
+        cardField = new JTextField();
+        cardField.setHorizontalAlignment(SwingConstants.CENTER);
+        cardField.setForeground(Color.BLACK);
+        cardField.setBackground(Color.GRAY);
+        cardField.setBounds(520, 375, 400, 30);
+        add(cardField);
 
         // Sign up button creation
         backButton = new JLabel("Return Home");
