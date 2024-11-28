@@ -1,5 +1,13 @@
 package Boundary;
 
+/*
+* File Name: Registration.java
+* Assignment: Final Project
+* Lab section: B02
+* Completed by: Adam Yuen
+* Development Date: November 28, 2024
+*/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

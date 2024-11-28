@@ -1,5 +1,13 @@
 package Boundary;
 
+/*
+* File Name: Homepage.java
+* Assignment: Final Project
+* Lab section: B02
+* Completed by: Adam Yuen
+* Development Date: November 28, 2024
+*/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -20,7 +28,7 @@ public class Homepage extends JPanel {
     public Homepage(JFrame mainWindow) {
         setLayout(null);
         // Label creation for the homepage
-        theaterTitle = new JLabel("I AM NOT RACIST (change title later)");
+        theaterTitle = new JLabel("ACMEPLEX Theater Portal");
         theaterTitle.setHorizontalAlignment(SwingConstants.CENTER);
         theaterTitle.setForeground(Color.BLACK);
         theaterTitle.setFont(new Font("Calibri", Font.BOLD, 30));
@@ -118,6 +126,19 @@ public class Homepage extends JPanel {
 				mainWindow.revalidate();
 			}
 		});
+
+        // Submit login stuff
+        submitLoginButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String enteredUsername = loginBox.getText();
+                String enteredPassword = String.valueOf(passwordBox.getPassword());
+                // If authenticated
+                MovieBrowser registerPanel = new MovieBrowser(mainWindow);
+				mainWindow.setContentPane(registerPanel);
+				mainWindow.revalidate();
+            }
+        });
         setVisible(true);
     }
 }
