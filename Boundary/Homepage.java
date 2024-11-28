@@ -93,11 +93,13 @@ public class Homepage extends JPanel {
         developerNote.setBounds(520, 530, 400, 30);
         add(developerNote);
 
+        // Set the background image using a JLabel as an image
         background = new JLabel("");
         background.setBounds(100, 0, 1366, 768);
         background.setIcon(new ImageIcon(Homepage.class.getResource("theaterVector.jpg")));
         add(background);
 
+        // Sign up button redirect logic
         signUpButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -107,6 +109,15 @@ public class Homepage extends JPanel {
 			}
 		});
 
+        // Continue as guest redirect logic
+        guestBypassLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MovieBrowser registerPanel = new MovieBrowser(mainWindow);
+				mainWindow.setContentPane(registerPanel);
+				mainWindow.revalidate();
+			}
+		});
         setVisible(true);
     }
 }
