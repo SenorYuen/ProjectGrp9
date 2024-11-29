@@ -4,13 +4,13 @@ public class Receipt {
     private double amountPaid;
     private String issueDate;
     private String movieName;
-    private int seatNumber;
+    private String seatNumber;
     private int id;
 
     static private int idCounter = 1000;
 
     // Constructor
-    public Receipt(double amountPaid, String issueDate, String movieName, int seatNumber){
+    public Receipt(double amountPaid, String issueDate, String movieName, String seatNumber){
         this.amountPaid = amountPaid;
         this.issueDate = issueDate;
         this.movieName = movieName;
@@ -50,7 +50,7 @@ public class Receipt {
         this.movieName = movieName;
     }
 
-    public int getSeatNumber(){
+    public String getSeatNumber(){
         return seatNumber;
     }
 

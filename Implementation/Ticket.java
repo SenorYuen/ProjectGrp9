@@ -9,19 +9,19 @@
 package Implementation;
 
 public class Ticket {
-    private int seatNumber;
+    private String seatNumber;
     private String movieName;
     private String theaterLocation;
 
     // Constructor
-    public Ticket(int seatNumber, String movieName, String theaterLocation){
+    public Ticket(String seatNumber, String movieName, String theaterLocation){
         this.seatNumber = seatNumber;
         this.movieName = movieName;
         this.theaterLocation = theaterLocation;
     }
 
     // GETTERS and SETTERS
-    public int getSeatNumber() {
+    public String getSeatNumber() {
         return this.seatNumber;
     }
 
@@ -29,7 +29,7 @@ public class Ticket {
         return this.movieName;
     }
 
-    public void setSeatNumber(int seatNumber) {
+    public void setSeatNumber(String seatNumber) {
         this.seatNumber = seatNumber;
     }
 

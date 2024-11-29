@@ -58,6 +58,15 @@ public class MovieBrowser extends JPanel{
         cancelTicketLabel.setForeground(Color.BLACK);
         add(cancelTicketLabel);
 
+        // Creating a membership payment field
+        cancelTicketLabel = new JLabel("Pay Annual membership Fee");
+        cancelTicketLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        cancelTicketLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        cancelTicketLabel.setFont(new Font("Calibri", Font.PLAIN, 23));
+        cancelTicketLabel.setBounds(250, 20, 300, 30);
+        cancelTicketLabel.setForeground(Color.BLACK);
+        add(cancelTicketLabel);
+
         // Current theater label creation
         currentTheater = new JLabel("Current Theater: ICT 028");
         currentTheater.setHorizontalAlignment(SwingConstants.CENTER);
@@ -157,14 +166,7 @@ public class MovieBrowser extends JPanel{
         submitSeatSelection.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String seatSelection = submitSeatSelection.getText();
-                int seat;
-                try {
-                    seat = Integer.parseInt(seatSelection);
-                }
-                catch (NumberFormatException a) {
-                    seat = -1;
-                }
+                String seat = seatSelector.getText();
 
                 // logic for seat being available.
 
