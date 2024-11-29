@@ -67,6 +67,12 @@ public class MovieBrowser extends JPanel{
             annualFeeLabel.setFont(new Font("Calibri", Font.PLAIN, 23));
             annualFeeLabel.setBounds(250, 20, 300, 30);
             annualFeeLabel.setForeground(Color.BLACK);
+            annualFeeLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    JOptionPane.showMessageDialog(null, "Payment Received, Thank You! (add date time functionality later))");
+                }
+            });
             add(annualFeeLabel);
         }
 
