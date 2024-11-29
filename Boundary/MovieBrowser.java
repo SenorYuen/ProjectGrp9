@@ -36,7 +36,7 @@ public class MovieBrowser extends JPanel{
     MovieBrowser(JFrame mainWindow, LoginSession backendConnector) {
         tentativeMovieList = new Vector<>(backendConnector.getMovieNames());
         showtimeList = new Vector<>(); // Initialize showtimeList
-        showtimeList.add(backendConnector.getTheater().getCatalog().get(1).getShowtime().getTime());
+        showtimeList.add(backendConnector.getTheater().getCatalog().get(0).getShowtime().getTime());
 
         setLayout(null);
         // Label creation for the homepage
@@ -113,9 +113,14 @@ public class MovieBrowser extends JPanel{
                 for(Movie movie: backendConnector.getTheater().getCatalog()){
                     if (movie.getName() == selectedMovie) {
                         showtimeList.add(movie.getShowtime().getTime());
-                        add(showtimeSelector);
                     }
                 }
+                remove(showtimeSelector);
+                showtimeSelector = new JComboBox<String>(showtimeList);
+                showtimeSelector.setFont(new Font("Calibri", Font.PLAIN, 20));
+                showtimeSelector.setBackground(Color.GRAY);
+                showtimeSelector.setBounds(85, 140, 200, 30);
+                add(showtimeSelector);
 			}
         });
         add(movieSelector);
@@ -125,6 +130,7 @@ public class MovieBrowser extends JPanel{
         showtimeSelector.setBackground(Color.GRAY);
         showtimeSelector.setBounds(85, 140, 200, 30);
 
+        add(showtimeSelector);
         // Creating the seat grid
         seatGrid = new JPanel(new GridLayout(5, 4, 5, 5));
         seatGrid.setBounds(515, 190, 400, 400);

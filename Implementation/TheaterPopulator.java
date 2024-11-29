@@ -3,7 +3,7 @@ package Implementation;
 import java.util.ArrayList;
 
 public class TheaterPopulator {
-    
+
     public static Theater populateTheater(){
         ArrayList<Seat> seatMap = new ArrayList<Seat>();
         for(int i = 0; i < 20; i++){
@@ -12,23 +12,23 @@ public class TheaterPopulator {
         }
 
         Movie movie1 = new Movie(
-            "Finding Fahmi", 
+            "Finding Fahmi",
             30,
-            new Date(3, 9, 2004, "13:00:03"),
+            new Date(3, 9, 2004, "13:00"),
             seatMap
         );
-        
+
         Movie movie2 = new Movie(
             "Stacklin's enqueue to the Heap",
             900,
-            new Date(5, 4, 1960, "00:00:00"),
+            new Date(5, 4, 1960, "00:00"),
             seatMap
         );
 
         Movie movie3 = new Movie(
             "Odin's Downfall",
             1000,
-            new Date(8,5,1800, "10:03:59"),
+            new Date(8,5,1800, "10:03"),
             seatMap
         );
 
