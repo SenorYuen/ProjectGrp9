@@ -111,12 +111,22 @@ public class MovieBrowser extends JPanel{
 				String selectedMovie = (String) movieSelector.getSelectedItem();
 
                 if (backendConnector.getAuthenticationStatus()) {
-                    for(Movie movie: backendConnector.getTheater().getUnreleasedCatalog());
+                    for (Movie movie: backendConnector.getTheater().getUnreleasedCatalog()) {
+                        if (movie.getName() == selectedMovie) {
+                            showtimeList.add(movie.getShowtime().toString());
+                        }
+                    }
+                    for (Movie movie: backendConnector.getTheater().getCatalog()) {
+                        if (movie.getName() == selectedMovie) {
+                            showtimeList.add(movie.getShowtime().toString());
+                        }
+                    }
                 }
-
-                for(Movie movie: backendConnector.getTheater().getCatalog()){
-                    if (movie.getName() == selectedMovie) {
-                        showtimeList.add(movie.getShowtime().toString());
+                else {
+                    for(Movie movie: backendConnector.getTheater().getCatalog()){
+                        if (movie.getName() == selectedMovie) {
+                            showtimeList.add(movie.getShowtime().toString());
+                        }
                     }
                 }
                 remove(showtimeSelector);
