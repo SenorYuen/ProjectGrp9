@@ -17,9 +17,9 @@ public class LoginSession {
         this.enteredUsername = username;
         this.enteredPassword = password;
         mainCatalog = new ArrayList<String>();
-        for(Movie movie: theater.getCatalog()){
-            mainCatalog.add(movie.getName());
-        }
+        // for(Movie movie: theater.getCatalog()){
+        //     mainCatalog.add(movie.getName());
+        // }
         
         // User is registered -> they get both catalogs
         if(auth == true){
