@@ -10,24 +10,21 @@ package Implementation;
 
 public class Payment {
     private String paymentDate;
-    private String paymentMethod;
+    private String cardNumber;
     private Ticket ticket;
     private Receipt receipt;
 
     // Constructor
-    public Payment(String paymentDate, double amountPaid, String paymentMethod, Ticket ticket){
+    public Payment(String paymentDate, double amountPaid, String cardNumber, Ticket ticket){
         this.paymentDate = paymentDate;
-        this.paymentMethod = paymentMethod;
+        this.cardNumber = cardNumber;
         this.ticket = ticket;
         this.receipt = new Receipt(
             amountPaid,
             paymentDate,
-            ticket.getMovie().getName(),
-            ticket.getSeat().getSeatNumber()
+            ticket.getMovieName(),
+            ticket.getSeatNumber()
         );
-
-        // When payment is made that means that the seat is taken
-        ticket.getSeat().setTaken(true);
     }
 
     // GETTERS and SETTERS
@@ -43,8 +40,8 @@ public class Payment {
         return this.paymentDate;
     }
 
-    public String getPaymentMethod() {
-        return this.paymentMethod;
+    public String getCardNumber() {
+        return this.cardNumber;
     }
 
     public Receipt getReceipt(){
@@ -55,8 +52,8 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     // end of GETTERS and SETTERS 

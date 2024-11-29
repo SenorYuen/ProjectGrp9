@@ -71,13 +71,13 @@ public class RegisteredCustomer implements Person{
     // End of GETTERS and SETTERS
 
     @Override
-    public Receipt makePayment(Theater theater, Movie movieChosen, Seat seatChosen, double amountPaid){
+    public Receipt makePayment(String theaterLocation, String movieChosen, int seatNumber, double amountPaid){
         /* Purpose of this function is to allow the user to purchase a ticket
          * REQURIES: The THEATER the MOVIE is playing along with the SEAT the user chose and the AMOUNT_PAID
          * RETURNS: a Receipt confirming that the user bought it; Must also change seat status
          */
 
-        Ticket ticket = new Ticket(seatChosen, movieChosen, theater);
+        Ticket ticket = new Ticket(seatNumber, movieChosen, theaterLocation);
 
         Payment paymentMade = new Payment(
             LocalDate.now().toString(),

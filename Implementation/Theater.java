@@ -12,15 +12,12 @@ public class Theater{
     private ArrayList<Movie> catalog;
     private ArrayList<Movie> unreleasedCatalog;
     private String location;
-    private ArrayList<Seat> seatMap;
-
 
     // Constructor
-    public Theater(ArrayList<Movie> catalog, ArrayList<Movie> unreleasedCatalog, String location, ArrayList<Seat> seatMap){
+    public Theater(ArrayList<Movie> catalog, ArrayList<Movie> unreleasedCatalog, String location){
         this.catalog = new ArrayList<Movie>();
         this.unreleasedCatalog = new ArrayList<Movie>();
         this.location = location;
-        this.seatMap = new ArrayList<Seat>(); // I can already seeing this being a problem for the "admin" to add in but thats a later issue
     }
 
     // GETTERS and SETTERS
@@ -46,14 +43,6 @@ public class Theater{
     
     public void setLocation (String selectedLocation) {
         this.location = selectedLocation;
-    }
-
-    public ArrayList<Seat> getSeatMap(){
-        return this.seatMap;
-    }
-
-    public void setSeatMap(ArrayList<Seat> seatMap){
-        this.seatMap = seatMap;
     }
 
     // End of GETTERS and SETTERS
