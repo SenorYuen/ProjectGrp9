@@ -30,7 +30,7 @@ public class MovieBrowser extends JPanel{
     private JLabel cancelTicketLabel;
     private JLabel developerNote;
 
-    MovieBrowser(JFrame mainWindow) {
+    MovieBrowser(JFrame mainWindow, LoginSession backendConnector) {
         setLayout(null);
         // Label creation for the homepage
         header = new JLabel("Browse Movies");

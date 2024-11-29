@@ -9,6 +9,9 @@ package Boundary;
 */
 
 import javax.swing.*;
+
+import Implementation.LoginSession;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -121,7 +124,8 @@ public class Homepage extends JPanel {
         guestBypassLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MovieBrowser registerPanel = new MovieBrowser(mainWindow);
+                LoginSession bypassLogin = new LoginSession(false, "Guest", "Guest");
+				MovieBrowser registerPanel = new MovieBrowser(mainWindow, bypassLogin);
 				mainWindow.setContentPane(registerPanel);
 				mainWindow.revalidate();
 			}
@@ -133,8 +137,10 @@ public class Homepage extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 String enteredUsername = loginBox.getText();
                 String enteredPassword = String.valueOf(passwordBox.getPassword());
+                
                 // If authenticated
-                MovieBrowser registerPanel = new MovieBrowser(mainWindow);
+                LoginSession authenticatedLogin = new LoginSession(true, enteredUsername, enteredPassword);
+                MovieBrowser registerPanel = new MovieBrowser(mainWindow, authenticatedLogin);
 				mainWindow.setContentPane(registerPanel);
 				mainWindow.revalidate();
             }
