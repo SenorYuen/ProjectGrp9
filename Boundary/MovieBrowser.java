@@ -36,7 +36,7 @@ public class MovieBrowser extends JPanel{
     MovieBrowser(JFrame mainWindow, LoginSession backendConnector) {
         tentativeMovieList = new Vector<>(backendConnector.getMovieNames());
         showtimeList = new Vector<>(); // Initialize showtimeList
-        showtimeList.add(backendConnector.getTheater().getCatalog().get(0).getShowtime().getTime());
+        showtimeList.add(backendConnector.getTheater().getCatalog().get(0).getShowtime().toString());
 
         setLayout(null);
         // Label creation for the homepage
@@ -110,9 +110,13 @@ public class MovieBrowser extends JPanel{
                 showtimeList.clear();
 				String selectedMovie = (String) movieSelector.getSelectedItem();
 
+                if (backendConnector.getAuthenticationStatus()) {
+                    for(Movie movie: backendConnector.getTheater().getUnreleasedCatalog());
+                }
+
                 for(Movie movie: backendConnector.getTheater().getCatalog()){
                     if (movie.getName() == selectedMovie) {
-                        showtimeList.add(movie.getShowtime().getTime());
+                        showtimeList.add(movie.getShowtime().toString());
                     }
                 }
                 remove(showtimeSelector);

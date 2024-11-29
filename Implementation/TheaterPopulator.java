@@ -28,7 +28,7 @@ public class TheaterPopulator {
         Movie movie3 = new Movie(
             "Odin's Downfall",
             1000,
-            new Date(8,5,1800, "10:03"),
+            new Date(8,5,2800, "10:03"),
             seatMap
         );
 

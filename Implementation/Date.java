@@ -10,7 +10,7 @@ public class Date {
 	private int month;
 	private int year;
 	private String time;
-	
+
 	// Constructor
 	public Date(int day, int month, int year, String time) {
 		this.day = day;
@@ -49,7 +49,7 @@ public class Date {
 
 	@Override
 	public String toString(){
-		return year + '/' + month + '/' + day + '/' + '-' + time;
+		return (String.valueOf(year) + '/' + String.valueOf(month) + '/' + String.valueOf(day) + " - " + time);
 	}
 
 
