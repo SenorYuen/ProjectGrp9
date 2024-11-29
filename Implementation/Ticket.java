@@ -9,42 +9,34 @@
 package Implementation;
 
 public class Ticket {
-    private Seat seat;
-    private Movie movie;
-    private Theater theater;
+    private int seatNumber;
+    private String movieName;
+    private String theaterLocation;
 
     // Constructor
-    public Ticket(Seat seat, Movie movie, Theater theater){
-        this.seat = seat;
-        this.movie = movie;
-        this.theater = theater;
+    public Ticket(int seatNumber, String movieName, String theaterLocation){
+        this.seatNumber = seatNumber;
+        this.movieName = movieName;
+        this.theaterLocation = theaterLocation;
     }
 
     // GETTERS and SETTERS
-    public Seat getSeat() {
-        return this.seat;
+    public int getSeatNumber() {
+        return this.seatNumber;
     }
 
-    public Movie getMovie() {
-        return this.movie;
+    public String getMovieName() {
+        return this.movieName;
     }
 
-    public void setSeat(Seat seat) {
-        this.seat = seat;
+    public void setSeatNumber(int seatNumber) {
+        this.seatNumber = seatNumber;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    public String getTheaterLocation(){
+        return this.theaterLocation;
     }
 
-    public Theater getTheater(){
-        return this.theater;
-    }
-
-    public void setTheater(Theater theater){
-        this.theater = theater;
-    }
-    
 
 
 }

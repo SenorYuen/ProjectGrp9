@@ -11,13 +11,15 @@ import java.util.ArrayList;
 public class Movie {
     private String name;
     private int length;
-    private ArrayList<Date> showtimes;
+    private Date showtime; 
+    private ArrayList<Seat> seatMap;
 
     // Constructor
-    public Movie(String name, int length, ArrayList<Date> showtimes) {
+    public Movie(String name, int length, Date showtime, ArrayList<Seat> seatMap) {
         this.name = name;
         this.length = length;
-        this.showtimes = showtimes;
+        this.showtime = showtime;
+        this.seatMap = seatMap;
     }
 
     // GETTERS and SETTERS
@@ -29,6 +31,14 @@ public class Movie {
         this.name = newName;
     }
 
+    public ArrayList<Seat> getSeatMap(){
+        return seatMap;
+    }
+
+    public void setSeatMap(ArrayList<Seat> newSeatMap){
+        this.seatMap = newSeatMap;
+    }
+
     public int getLength() {
         return length;
     }
@@ -37,12 +47,12 @@ public class Movie {
         this.length = newLength;
     }
 
-    public ArrayList<Date> getShowtimes(){
-        return this.showtimes;
+    public Date getShowtime(){
+        return this.showtime;
     }
 
-    public void setShowtimes(ArrayList<Date> newShowtimes){
-        this.showtimes = newShowtimes;
+    public void setShowtime(Date showtime){
+        this.showtime = showtime;
     }
 
     // end of GETTERS and SETTERS
