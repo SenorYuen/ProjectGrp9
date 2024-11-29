@@ -32,8 +32,7 @@ public class MovieBrowser extends JPanel{
     private JLabel annualFeeLabel;
 
     MovieBrowser(JFrame mainWindow, LoginSession backendConnector) {
-        Vector<String> vector = new Vector<>(backendConnector.getMovieNames());
-        tentativeMovieList = vector;
+        tentativeMovieList = new Vector<>(backendConnector.getMovieNames());
 
         setLayout(null);
         // Label creation for the homepage
