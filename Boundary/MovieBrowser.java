@@ -14,12 +14,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class MovieBrowser extends JPanel{
     private JLabel header;
     private JLabel backButton;
     private Vector<String> tentativeMovieList;
+    private Vector<String> showtimeList;
     private JComboBox<String> movieSelector;
     private JPanel seatGrid;
     private JTextField seatSelector;
@@ -33,6 +35,8 @@ public class MovieBrowser extends JPanel{
 
     MovieBrowser(JFrame mainWindow, LoginSession backendConnector) {
         tentativeMovieList = new Vector<>(backendConnector.getMovieNames());
+        showtimeList = new Vector<>(); // Initialize showtimeList
+        showtimeList.add(backendConnector.getTheater().getCatalog().get(1).getShowtime().getTime());
 
         setLayout(null);
         // Label creation for the homepage
@@ -95,20 +99,31 @@ public class MovieBrowser extends JPanel{
         showtimeLabel.setForeground(Color.BLACK);
         add(showtimeLabel);
 
-        // Dropdown for showtimes:
-        showtimeSelector = new JComboBox<String>(tentativeMovieList);
-        showtimeSelector.setFont(new Font("Calibri", Font.PLAIN, 20));
-        showtimeSelector.setBackground(Color.GRAY);
-        showtimeSelector.setBounds(85, 140, 200, 30);
-        add(showtimeSelector);
-
-
         // Creating the movie dropdown menu
         movieSelector = new JComboBox<String>(tentativeMovieList);
         movieSelector.setFont(new Font("Calibri", Font.PLAIN, 20));
         movieSelector.setBackground(Color.GRAY);
         movieSelector.setBounds(515, 140, 400, 30);
+        movieSelector.addActionListener(new ActionListener() {
+            @Override
+			public void actionPerformed(ActionEvent e) {
+                showtimeList.clear();
+				String selectedMovie = (String) movieSelector.getSelectedItem();
+
+                for(Movie movie: backendConnector.getTheater().getCatalog()){
+                    if (movie.getName() == selectedMovie) {
+                        showtimeList.add(movie.getShowtime().getTime());
+                        add(showtimeSelector);
+                    }
+                }
+			}
+        });
         add(movieSelector);
+
+        showtimeSelector = new JComboBox<String>(showtimeList);
+        showtimeSelector.setFont(new Font("Calibri", Font.PLAIN, 20));
+        showtimeSelector.setBackground(Color.GRAY);
+        showtimeSelector.setBounds(85, 140, 200, 30);
 
         // Creating the seat grid
         seatGrid = new JPanel(new GridLayout(5, 4, 5, 5));
@@ -227,7 +242,7 @@ public class MovieBrowser extends JPanel{
                     Payment userPayment = new Payment(currentDate, ticketCost, cardSelection, userTicket);
 
                     // Receipt --> amount = 90, from prev, from before, from ui.
-                    Receipt userReceipt = new Receipt(ticketCost, currentDate, movieName, seat);
+                    Receipt userReceipt = userPayment.getReceipt();
 
                     // make ui thing display shit, destory objects. revaldiate page. done.
                     JOptionPane.showMessageDialog(
