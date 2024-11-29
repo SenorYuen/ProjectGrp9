@@ -157,30 +157,51 @@ public class MovieBrowser extends JPanel{
 		});
 
         cancelTicketLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-                // Prompt the user to enter their ticket and store it in the 
-                String ticketNumber = JOptionPane.showInputDialog("Enter Ticket Number to Cancel: ");
-                        
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Prompt the user to enter their ticket number
+                String ticketNumber = JOptionPane.showInputDialog("Enter Ticket Number to Cancel:");
+
+                // Check if the input is null or invalid
                 if (ticketNumber == null) {
+                    JOptionPane.showMessageDialog(null, "Action canceled.");
                     return;
                 }
-                else {
-                    // Add refun percentage based on date
-                    JOptionPane.showMessageDialog(null, "Ticket " + ticketNumber + " cancelled");
+
+                try {
+                    int ticketNum = Integer.parseInt(ticketNumber);
+
+                    if (ticketNum <= 0) {
+                        JOptionPane.showMessageDialog(null, "Invalid Ticket Number. Please enter a valid number.");
+                    } else {
+                        // Add refund percentage based on date or proceed with cancellation
+                        JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled.");
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Invalid input. Please enter a numeric ticket number.");
                 }
-			}
-		});
+            }
+        });
 
         submitSeatSelection.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                int choice = JOptionPane.NO_OPTION;
                 String seat = seatSelector.getText();
 
-                // logic for seat being available.
+                try {
+                    int seatNum = Integer.parseInt(seat);
 
-                int choice = JOptionPane.showConfirmDialog(null, "Purchase ticket for seat " + seat + "?",
-				"Confirm Purchase?\nTotal cost: $90", JOptionPane.YES_NO_CANCEL_OPTION);
+                    if (seatNum <= 0 || seatNum > 20) {
+                        JOptionPane.showMessageDialog(null, "Invalid Ticket Number. Please enter a valid number.");
+                    } else {
+                        // logic for seat being available.
+                        choice = JOptionPane.showConfirmDialog(null, "Purchase ticket for seat " + seat + "?",
+				        "Confirm Purchase?\nTotal cost: $90", JOptionPane.YES_NO_CANCEL_OPTION);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Invalid input. Please enter a numeric seat number.");
+                }
 
             // Check the user's choice and display a corresponding message
             if (choice == JOptionPane.YES_OPTION && !backendConnector.getAuthenticationStatus()) {
@@ -188,34 +209,34 @@ public class MovieBrowser extends JPanel{
                 String cardSelection = JOptionPane.showInputDialog("Enter Card Number");
                 boolean cardNumberValid = false;
                 try {
-                    Integer.parseInt(cardSelection); 
+                    Integer.parseInt(cardSelection);
                     cardNumberValid = true;}
                 catch(NumberFormatException a) {
                     JOptionPane.showMessageDialog(null, "Invalid Payment Info, please try again");
                 }
-                
+
                 if (cardNumberValid) {
                     String movieName = "grab from theater instance";
                     String theaterLocation = "grab from theater";
                     String currentDate = LocalDate.now().toString();
                     Double ticketCost = 90.0;
-                        
+
                     // Make Ticket --> Seat number (infobox), movie name (theater login object), theater location (theater login object)
                     Ticket userTicket = new Ticket(seat, movieName, theaterLocation);
-    
-                    // Make Payment --> paymentDate (make current date, make string), payment amount = $90, card number, take prev ticket. 
+
+                    // Make Payment --> paymentDate (make current date, make string), payment amount = $90, card number, take prev ticket.
                     Payment userPayment = new Payment(currentDate, ticketCost, cardSelection, userTicket);
-    
-                    // Receipt --> amount = 90, from prev, from before, from ui. 
+
+                    // Receipt --> amount = 90, from prev, from before, from ui.
                     Receipt userReceipt = new Receipt(ticketCost, currentDate, movieName, seat);
-    
-                    // make ui thing display shit, destory objects. revaldiate page. done. 
+
+                    // make ui thing display shit, destory objects. revaldiate page. done.
                     JOptionPane.showMessageDialog(
-                        null, 
-                        "Payment Successful. A copy of this receipt was emailed to <email from login>" + 
+                        null,
+                        "Payment Successful. A copy of this receipt was emailed to <email from login>" +
                         "\n\nReceipt ID: " + String.valueOf(userReceipt.getId()) +
-                        "\nMovie: " + movieName + 
-                        "\nSeat: " + seat + 
+                        "\nMovie: " + movieName +
+                        "\nSeat: " + seat +
                         "\nPrice: $" + ticketCost +
                         "\nCard Number: " + cardSelection
                         );
@@ -225,23 +246,23 @@ public class MovieBrowser extends JPanel{
                 String theaterLocation = "grab from theater";
                 String currentDate = LocalDate.now().toString();
                 Double ticketCost = 90.0;
-                    
+
                 // Make Ticket --> Seat number (infobox), movie name (theater login object), theater location (theater login object)
                 Ticket userTicket = new Ticket(seat, movieName, theaterLocation);
 
-                // Make Payment --> paymentDate (make current date, make string), payment amount = $90, card number, take prev ticket. 
+                // Make Payment --> paymentDate (make current date, make string), payment amount = $90, card number, take prev ticket.
                 Payment userPayment = new Payment(currentDate, ticketCost, "PLACEHOLDER NUMBER", userTicket);
 
-                // Receipt --> amount = 90, from prev, from before, from ui. 
+                // Receipt --> amount = 90, from prev, from before, from ui.
                 Receipt userReceipt = new Receipt(ticketCost, currentDate, movieName, seat);
 
-                // make ui thing display shit, destory objects. revaldiate page. done. 
+                // make ui thing display shit, destory objects. revaldiate page. done.
                 JOptionPane.showMessageDialog(
-                    null, 
-                    "Payment Successful. A copy of this receipt was emailed to <email from login>" + 
+                    null,
+                    "Payment Successful. A copy of this receipt was emailed to <email from login>" +
                     "\n\nReceipt ID: " + String.valueOf(userReceipt.getId()) +
-                    "\nMovie: " + movieName + 
-                    "\nSeat: " + seat + 
+                    "\nMovie: " + movieName +
+                    "\nSeat: " + seat +
                     "\nPrice: $" + ticketCost +
                     "\nCard Number: " + "PLACEHOLDER NUMBER"
                     );
@@ -254,7 +275,7 @@ public class MovieBrowser extends JPanel{
             }
             }
         });
-        
+
 
         setVisible(true);
     }
