@@ -159,16 +159,16 @@ public class MovieBrowser extends JPanel{
         cancelTicketLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-            // Prompt the user to enter their ticket and store it in the 
-            String ticketNumber = JOptionPane.showInputDialog("Enter Ticket Number to Cancel: ");
-                    
-            if (ticketNumber == null) {
-                return;
-            }
-            else {
-                // Add refun percentage based on date
-                JOptionPane.showMessageDialog(null, "Ticket " + ticketNumber + " cancelled");
-            }
+                // Prompt the user to enter their ticket and store it in the 
+                String ticketNumber = JOptionPane.showInputDialog("Enter Ticket Number to Cancel: ");
+                        
+                if (ticketNumber == null) {
+                    return;
+                }
+                else {
+                    // Add refun percentage based on date
+                    JOptionPane.showMessageDialog(null, "Ticket " + ticketNumber + " cancelled");
+                }
 			}
 		});
 
@@ -183,7 +183,7 @@ public class MovieBrowser extends JPanel{
 				"Confirm Purchase?\nTotal cost: $90", JOptionPane.YES_NO_CANCEL_OPTION);
 
             // Check the user's choice and display a corresponding message
-            if (choice == JOptionPane.YES_OPTION) {
+            if (choice == JOptionPane.YES_OPTION && !backendConnector.getAuthenticationStatus()) {
                 // If the user chose 'Yes', show a message indicating that changes are saved
                 String cardSelection = JOptionPane.showInputDialog("Enter Card Number");
                 boolean cardNumberValid = false;
@@ -216,10 +216,35 @@ public class MovieBrowser extends JPanel{
                         "\n\nReceipt ID: " + String.valueOf(userReceipt.getId()) +
                         "\nMovie: " + movieName + 
                         "\nSeat: " + seat + 
-                        "\nPrice: $" + ticketCost
+                        "\nPrice: $" + ticketCost +
+                        "\nCard Number: " + cardSelection
                         );
                 }
-                
+            } else if (choice == JOptionPane.YES_OPTION && backendConnector.getAuthenticationStatus()) {
+                String movieName = "grab from theater instance";
+                String theaterLocation = "grab from theater";
+                String currentDate = LocalDate.now().toString();
+                Double ticketCost = 90.0;
+                    
+                // Make Ticket --> Seat number (infobox), movie name (theater login object), theater location (theater login object)
+                Ticket userTicket = new Ticket(seat, movieName, theaterLocation);
+
+                // Make Payment --> paymentDate (make current date, make string), payment amount = $90, card number, take prev ticket. 
+                Payment userPayment = new Payment(currentDate, ticketCost, "PLACEHOLDER NUMBER", userTicket);
+
+                // Receipt --> amount = 90, from prev, from before, from ui. 
+                Receipt userReceipt = new Receipt(ticketCost, currentDate, movieName, seat);
+
+                // make ui thing display shit, destory objects. revaldiate page. done. 
+                JOptionPane.showMessageDialog(
+                    null, 
+                    "Payment Successful. A copy of this receipt was emailed to <email from login>" + 
+                    "\n\nReceipt ID: " + String.valueOf(userReceipt.getId()) +
+                    "\nMovie: " + movieName + 
+                    "\nSeat: " + seat + 
+                    "\nPrice: $" + ticketCost +
+                    "\nCard Number: " + "PLACEHOLDER NUMBER"
+                    );
             } else if (choice == JOptionPane.NO_OPTION) {
                 // If the user chose 'No', show a message indicating that changes are not saved
                 JOptionPane.showMessageDialog(null, "Purchase cancelled. You will not be charged");
