@@ -13,6 +13,7 @@ import Implementation.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
 import java.util.Vector;
 
 public class MovieBrowser extends JPanel{
@@ -140,7 +141,7 @@ public class MovieBrowser extends JPanel{
         cancelTicketLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-            // Prompt the user to enter their article name and store it in the 'name' variable
+            // Prompt the user to enter their ticket and store it in the 
             String ticketNumber = JOptionPane.showInputDialog("Enter Ticket Number to Cancel: ");
                     
             if (ticketNumber == null) {
@@ -168,25 +169,52 @@ public class MovieBrowser extends JPanel{
                 // logic for seat being available.
 
                 int choice = JOptionPane.showConfirmDialog(null, "Purchase ticket for seat " + seat + "?",
-				"Confirm Purchase?", JOptionPane.YES_NO_CANCEL_OPTION);
+				"Confirm Purchase?\nTotal cost: $90", JOptionPane.YES_NO_CANCEL_OPTION);
 
             // Check the user's choice and display a corresponding message
             if (choice == JOptionPane.YES_OPTION) {
                 // If the user chose 'Yes', show a message indicating that changes are saved
                 String cardSelection = JOptionPane.showInputDialog("Enter Card Number");
-
-                // Make Ticket --> Seat number (infobox), movie name (theater login object), theater location (theater login object)
-                // Make Payment --> paymentDate (make current date, make string), payment amount = $90, card number, take prev ticket. 
-                // Receipt --> amount = 90, from prev, from before, from ui. 
-            
-                // make ui thing display shit, destory objects. revaldiate page. done. 
+                boolean cardNumberValid = false;
+                try {
+                    Integer.parseInt(cardSelection); 
+                    cardNumberValid = true;}
+                catch(NumberFormatException a) {
+                    JOptionPane.showMessageDialog(null, "Invalid Payment Info, please try again");
+                }
+                
+                if (cardNumberValid) {
+                    String movieName = "grab from theater instance";
+                    String theaterLocation = "grab from theater";
+                    String currentDate = LocalDate.now().toString();
+                    Double ticketCost = 90.0;
+                        
+                    // Make Ticket --> Seat number (infobox), movie name (theater login object), theater location (theater login object)
+                    Ticket userTicket = new Ticket(seat, movieName, theaterLocation);
+    
+                    // Make Payment --> paymentDate (make current date, make string), payment amount = $90, card number, take prev ticket. 
+                    Payment userPayment = new Payment(currentDate, ticketCost, cardSelection, userTicket);
+    
+                    // Receipt --> amount = 90, from prev, from before, from ui. 
+                    Receipt userReceipt = new Receipt(ticketCost, currentDate, movieName, seat);
+    
+                    // make ui thing display shit, destory objects. revaldiate page. done. 
+                    JOptionPane.showMessageDialog(
+                        null, 
+                        "Payment Successful. A copy of this receipt was emailed to <email from login>" + 
+                        "\n\nReceipt ID: " + String.valueOf(userReceipt.getId()) +
+                        "\nMovie: " + movieName + 
+                        "\nSeat: " + seat + 
+                        "\nPrice: $" + ticketCost
+                        );
+                }
                 
             } else if (choice == JOptionPane.NO_OPTION) {
                 // If the user chose 'No', show a message indicating that changes are not saved
                 JOptionPane.showMessageDialog(null, "Purchase cancelled. You will not be charged");
             } else {
                 // If the user chose 'Cancel' or closed the dialog, show a message indicating the operation is canceled
-                JOptionPane.showMessageDialog(null, "Operation canceled.");
+                JOptionPane.showMessageDialog(null, "Transaction canceled.");
             }
             }
         });
