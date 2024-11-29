@@ -96,6 +96,7 @@ public class MovieBrowser extends JPanel{
         seatGrid = new JPanel(new GridLayout(5, 4, 5, 5));
         seatGrid.setBounds(515, 190, 400, 400);
         for (int i = 0; i < 20; i++) {
+            // needs theater accessing.
             JTextField seatText = new JTextField("Seat " + (i+1) + ":  Free");
             seatGrid.add(seatText, BorderLayout.CENTER);
         }
@@ -163,6 +164,9 @@ public class MovieBrowser extends JPanel{
                 catch (NumberFormatException a) {
                     seat = -1;
                 }
+
+                // logic for seat being available.
+
                 int choice = JOptionPane.showConfirmDialog(null, "Purchase ticket for seat " + seat + "?",
 				"Confirm Purchase?", JOptionPane.YES_NO_CANCEL_OPTION);
 
@@ -170,6 +174,12 @@ public class MovieBrowser extends JPanel{
             if (choice == JOptionPane.YES_OPTION) {
                 // If the user chose 'Yes', show a message indicating that changes are saved
                 String cardSelection = JOptionPane.showInputDialog("Enter Card Number");
+
+                // Make Ticket --> Seat number (infobox), movie name (theater login object), theater location (theater login object)
+                // Make Payment --> paymentDate (make current date, make string), payment amount = $90, card number, take prev ticket. 
+                // Receipt --> amount = 90, from prev, from before, from ui. 
+            
+                // make ui thing display shit, destory objects. revaldiate page. done. 
                 
             } else if (choice == JOptionPane.NO_OPTION) {
                 // If the user chose 'No', show a message indicating that changes are not saved
