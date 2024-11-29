@@ -19,7 +19,7 @@ import java.util.Vector;
 public class MovieBrowser extends JPanel{
     private JLabel header;
     private JLabel backButton;
-    private Vector<String> tentativeMovieList = new Vector<String>(1);
+    private Vector<String> tentativeMovieList;
     private JComboBox<String> movieSelector;
     private JPanel seatGrid;
     private JTextField seatSelector;
@@ -32,6 +32,9 @@ public class MovieBrowser extends JPanel{
     private JLabel annualFeeLabel;
 
     MovieBrowser(JFrame mainWindow, LoginSession backendConnector) {
+        Vector<String> vector = new Vector<>(backendConnector.getMovieNames());
+        tentativeMovieList = vector;
+
         setLayout(null);
         // Label creation for the homepage
         header = new JLabel("Browse Movies");
@@ -102,9 +105,6 @@ public class MovieBrowser extends JPanel{
 
 
         // Creating the movie dropdown menu
-        tentativeMovieList.addElement("Finding Fahmi");
-        tentativeMovieList.addElement("Finding Fahmi 2");
-        tentativeMovieList.addElement("Odin's Downfall");
         movieSelector = new JComboBox<String>(tentativeMovieList);
         movieSelector.setFont(new Font("Calibri", Font.PLAIN, 20));
         movieSelector.setBackground(Color.GRAY);

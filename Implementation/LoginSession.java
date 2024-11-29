@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class LoginSession {
     private Theater theater;
-    private ArrayList<String> mainCatalog;
+    private ArrayList<String> movieNames;
     private String enteredUsername;
     private String enteredPassword;
     private boolean authenticated;
@@ -15,6 +15,10 @@ public class LoginSession {
 
     public boolean getAuthenticationStatus() {
         return this.authenticated;
+    }
+
+    public ArrayList<String> getMovieNames() {
+        return this.movieNames;
     }
 
     public void setEnteredUsername(String username) {
@@ -30,19 +34,17 @@ public class LoginSession {
         this.enteredUsername = username;
         this.enteredPassword = password;
         this.authenticated = auth;
-        mainCatalog = new ArrayList<String>();
-        // for(Movie movie: theater.getCatalog()){
-        //     mainCatalog.add(movie.getName());
-        // }
-        
+        movieNames = new ArrayList<String>();
+        theater = TheaterPopulator.populateTheater();
+        for(Movie movie: theater.getCatalog()){
+            movieNames.add(movie.getName());
+        }
+
         // User is registered -> they get both catalogs
-        // if(authenticated == true){
-        //     for(Movie movie: theater.getUnreleasedCatalog()){
-        //         mainCatalog.add(movie.getName());
-        //     }
-        // }
-
+        if(authenticated == true){
+            for(Movie movie: theater.getUnreleasedCatalog()){
+                movieNames.add(movie.getName());
+            }
+        }
     }
-
-    
 }
