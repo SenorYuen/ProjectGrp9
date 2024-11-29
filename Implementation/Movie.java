@@ -19,7 +19,12 @@ public class Movie {
         this.name = name;
         this.length = length;
         this.showtime = showtime;
-        this.seatMap = seatMap;
+        this.seatMap = new ArrayList<Seat>();
+        
+        for(Seat seat: seatMap){
+            this.seatMap.add(new Seat(seat));
+        }
+
     }
 
     // GETTERS and SETTERS

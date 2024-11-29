@@ -18,6 +18,12 @@ public class Seat{
         this.price = price;
     }
 
+    public Seat(Seat other){
+        this.seatNumber = other.getSeatNumber();
+        this.taken = other.getTaken();
+        this.price = other.getPrice();
+    }
+
 
     // GETTERS and SETTERS
     public int getSeatNumber(){

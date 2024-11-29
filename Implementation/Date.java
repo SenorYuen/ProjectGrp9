@@ -6,13 +6,13 @@ package Implementation;
 
 public class Date {
 
-	private String day;
+	private int day;
 	private String month;
 	private int year;
 	private String time;
 	
 	// Constructor
-	public Date(String day, String month, int year, String time) {
+	public Date(int day, String month, int year, String time) {
 		/**
 		 * I assume this will be saved to the database if not then 
 		 * we need a way to ensure the following:
@@ -27,7 +27,7 @@ public class Date {
 	}
 
 	// GETTERS and SETTERS
-	public String getDay() {
+	public int getDay() {
 		return this.day;
 
 	}
@@ -41,7 +41,7 @@ public class Date {
 		return this.time;
 	}
 
-	public void setDay(String selectedDay) {
+	public void setDay(int selectedDay) {
 		this.day = selectedDay;
 	}
 	public void setMonth(String selectedMonth) {
