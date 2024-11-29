@@ -17,6 +17,14 @@ public class LoginSession {
         return this.authenticated;
     }
 
+    public void setEnteredUsername(String username) {
+        this.enteredUsername = username;
+    }
+
+    public void setEnteredPassword(String password) {
+        this.enteredPassword = password;
+    }
+
     // Constructor
     public LoginSession(boolean auth, String username, String password){
         this.enteredUsername = username;

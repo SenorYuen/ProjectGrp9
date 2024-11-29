@@ -114,7 +114,8 @@ public class Homepage extends JPanel {
         signUpButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Registration registerPanel = new Registration(mainWindow);
+                LoginSession guestForNow = new LoginSession(false, null, null);
+				Registration registerPanel = new Registration(mainWindow, guestForNow);
 				mainWindow.setContentPane(registerPanel);
 				mainWindow.revalidate();
 			}

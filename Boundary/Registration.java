@@ -9,6 +9,10 @@ package Boundary;
 */
 
 import javax.swing.*;
+
+import Implementation.LoginSession;
+import Implementation.RegisteredCustomer;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -25,10 +29,12 @@ public class Registration extends JPanel {
     private JLabel developerNote;
     private JLabel cardLabel;
     private JTextField cardField;
+    private JLabel nameLabel;
+    private JTextField nameField;
 
     private static final long serialVersionUID = 1L;
 
-    public Registration(JFrame mainWindow) {
+    public Registration(JFrame mainWindow, LoginSession backendConnector) {
         setLayout(null);
         // Creating a label for the page title
         header = new JLabel("Registration Page");
@@ -84,15 +90,6 @@ public class Registration extends JPanel {
         confirmPasswordBox.setBounds(520, 300, 400, 30);
         add(confirmPasswordBox);
 
-        // Sign up button creation
-        signUpButton = new JLabel("Sign Up");
-        signUpButton.setHorizontalAlignment(SwingConstants.CENTER);
-        signUpButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        signUpButton.setFont(new Font("Calibri", Font.PLAIN, 23));
-        signUpButton.setBounds(520, 425, 400, 30);
-        signUpButton.setForeground(Color.BLACK);
-        add(signUpButton);
-
         // Card Info Label
         cardLabel = new JLabel("Enter Card Info");
         cardLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -109,7 +106,32 @@ public class Registration extends JPanel {
         cardField.setBounds(520, 375, 400, 30);
         add(cardField);
 
+        // Name info Label
+        nameLabel = new JLabel("Enter full name");
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        nameLabel.setForeground(Color.BLACK);
+        nameLabel.setFont(new Font("Calibri", Font.PLAIN, 21));
+        nameLabel.setBounds(520, 425, 400, 30);
+        add(nameLabel);
+
+        // Name Field creation:
+        nameField = new JTextField();
+        nameField.setHorizontalAlignment(SwingConstants.CENTER);
+        nameField.setForeground(Color.BLACK);
+        nameField.setBackground(Color.GRAY);
+        nameField.setBounds(520, 450, 400, 30);
+        add(nameField);
+
         // Sign up button creation
+        signUpButton = new JLabel("Sign Up");
+        signUpButton.setHorizontalAlignment(SwingConstants.CENTER);
+        signUpButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        signUpButton.setFont(new Font("Calibri", Font.PLAIN, 23));
+        signUpButton.setBounds(520, 500, 400, 30);
+        signUpButton.setForeground(Color.BLACK);
+        add(signUpButton);
+
+        // Back button creation
         backButton = new JLabel("Return Home");
         backButton.setHorizontalAlignment(SwingConstants.CENTER);
         backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -132,6 +154,31 @@ public class Registration extends JPanel {
 				Homepage homepage = new Homepage(mainWindow);
 				mainWindow.setContentPane(homepage);
 				mainWindow.revalidate();
+			}
+		});
+
+        signUpButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+                String email = emailBox.getText();
+                String passwordInitial = String.valueOf(passwordBox.getPassword());
+                String passwordFinal = String.valueOf(confirmPasswordBox.getPassword());
+                String cardNumber = cardField.getText();
+                String name = nameField.getText();
+
+                if (!passwordInitial.equals(passwordFinal)) {
+                    JOptionPane.showMessageDialog(null, "Passwords do not match");
+                    return;
+                }
+                // Add username duplicate validation with database
+                
+                RegisteredCustomer newRUInstance = new RegisteredCustomer(name, email, passwordFinal, cardNumber);
+                // Dump all fields into the database.
+
+                // Update Login Session
+                backendConnector.setEnteredUsername(email);
+                backendConnector.setEnteredPassword(passwordFinal);
+
 			}
 		});
 

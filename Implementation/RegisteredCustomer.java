@@ -15,15 +15,13 @@ public class RegisteredCustomer implements Person{
     private String name;
     private String email;
     private String password;
-    private String address;
-    private int cardNumber;
+    private String cardNumber;
 
     // Constructor
-    public RegisteredCustomer(String name, String email, String password, String address, int cardNumber) {
+    public RegisteredCustomer(String name, String email, String password, String cardNumber) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.address = address;
         this.cardNumber = cardNumber;
     }
 
@@ -40,11 +38,7 @@ public class RegisteredCustomer implements Person{
         return this.password;
     }
 
-    public String getAddress() {
-        return this.address;
-    }
-
-    public int getCardNumber() {
+    public String getCardNumber() {
         return this.cardNumber;
     }
 
@@ -60,11 +54,7 @@ public class RegisteredCustomer implements Person{
         this.password = desiredPassword;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
@@ -77,7 +67,7 @@ public class RegisteredCustomer implements Person{
          * RETURNS: a Receipt confirming that the user bought it; Must also change seat status
          */
 
-        Ticket ticket = new Ticket(seatNumber, movieChosen, theaterLocation);
+        Ticket ticket = new Ticket(String.valueOf(seatNumber), movieChosen, theaterLocation);
 
         Payment paymentMade = new Payment(
             LocalDate.now().toString(),

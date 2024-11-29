@@ -35,7 +35,7 @@ public class RegularCustomer implements Person{
          * RETURNS: a Receipt confirming that the user bought it; Must also change seat status
          */
 
-        Ticket ticket = new Ticket(seatNumber, movieChosen, theaterLocation);
+        Ticket ticket = new Ticket(String.valueOf(seatNumber), movieChosen, theaterLocation);
 
         Payment paymentMade = new Payment(
             LocalDate.now().toString(),
