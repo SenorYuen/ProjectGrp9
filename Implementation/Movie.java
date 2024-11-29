@@ -10,11 +10,18 @@ import java.util.ArrayList;
 
 public class Movie {
     private String name;
-    private int length;
+    private int length; 
     private Date showtime; 
     private ArrayList<Seat> seatMap;
 
     // Constructor
+    /**
+     * 
+     * @param name name of the movie
+     * @param length length of the movie in minutes
+     * @param showtime date the movie is coming to theaters
+     * @param seatMap map of the seat 
+     */
     public Movie(String name, int length, Date showtime, ArrayList<Seat> seatMap) {
         this.name = name;
         this.length = length;
