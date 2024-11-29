@@ -15,9 +15,10 @@ public class Theater{
 
     // Constructor
     public Theater(ArrayList<Movie> catalog, ArrayList<Movie> unreleasedCatalog, String location){
-        this.catalog = new ArrayList<Movie>();
-        this.unreleasedCatalog = new ArrayList<Movie>();
+        this.catalog = catalog;
+        this.unreleasedCatalog = unreleasedCatalog;
         this.location = location;
+
     }
 
     // GETTERS and SETTERS
