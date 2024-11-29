@@ -29,6 +29,7 @@ public class MovieBrowser extends JPanel{
     private JLabel showtimeLabel;
     private JLabel cancelTicketLabel;
     private JLabel developerNote;
+    private JLabel annualFeeLabel;
 
     MovieBrowser(JFrame mainWindow, LoginSession backendConnector) {
         setLayout(null);
@@ -59,13 +60,15 @@ public class MovieBrowser extends JPanel{
         add(cancelTicketLabel);
 
         // Creating a membership payment field
-        cancelTicketLabel = new JLabel("Pay Annual membership Fee");
-        cancelTicketLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        cancelTicketLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        cancelTicketLabel.setFont(new Font("Calibri", Font.PLAIN, 23));
-        cancelTicketLabel.setBounds(250, 20, 300, 30);
-        cancelTicketLabel.setForeground(Color.BLACK);
-        add(cancelTicketLabel);
+        if (backendConnector.getAuthenticationStatus()) {
+            annualFeeLabel = new JLabel("Pay Annual membership Fee");
+            annualFeeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            annualFeeLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            annualFeeLabel.setFont(new Font("Calibri", Font.PLAIN, 23));
+            annualFeeLabel.setBounds(250, 20, 300, 30);
+            annualFeeLabel.setForeground(Color.BLACK);
+            add(annualFeeLabel);
+        }
 
         // Current theater label creation
         currentTheater = new JLabel("Current Theater: ICT 028");
