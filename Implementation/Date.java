@@ -7,19 +7,12 @@ package Implementation;
 public class Date {
 
 	private int day;
-	private String month;
+	private int month;
 	private int year;
 	private String time;
 	
 	// Constructor
-	public Date(int day, String month, int year, String time) {
-		/**
-		 * I assume this will be saved to the database if not then 
-		 * we need a way to ensure the following:
-		 * MONTH is a valid month
-		 * DAY is a valid day depending on the month
-		 * maybe ensure YEAR is a 4 digit number
-		 */
+	public Date(int day, int month, int year, String time) {
 		this.day = day;
 		this.month = month;
 		this.year = year;
@@ -31,7 +24,7 @@ public class Date {
 		return this.day;
 
 	}
-	public String getMonth() {
+	public int getMonth() {
 		return this.month;
 	}
 	public int getYear() {
@@ -44,7 +37,7 @@ public class Date {
 	public void setDay(int selectedDay) {
 		this.day = selectedDay;
 	}
-	public void setMonth(String selectedMonth) {
+	public void setMonth(int selectedMonth) {
 		this.month = selectedMonth;
 	}
 	public void setYear(int selectedYear) {
@@ -52,6 +45,11 @@ public class Date {
 	}
 	public void setTime(String selectedTime) {
 		this.time = selectedTime;
+	}
+
+	@Override
+	public String toString(){
+		return year + '/' + month + '/' + day + '/' + '-' + time;
 	}
 
 

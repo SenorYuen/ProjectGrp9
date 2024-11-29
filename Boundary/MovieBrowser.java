@@ -227,7 +227,7 @@ public class MovieBrowser extends JPanel{
                     Payment userPayment = new Payment(currentDate, ticketCost, cardSelection, userTicket);
 
                     // Receipt --> amount = 90, from prev, from before, from ui.
-                    Receipt userReceipt = new Receipt(ticketCost, currentDate, movieName, seat);
+                    Receipt userReceipt = userPayment.getReceipt();
 
                     // make ui thing display shit, destory objects. revaldiate page. done.
                     JOptionPane.showMessageDialog(
