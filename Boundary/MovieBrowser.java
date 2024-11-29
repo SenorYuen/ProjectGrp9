@@ -1,5 +1,13 @@
 package Boundary;
 
+/*
+* File Name: MovieBrowser.java
+* Assignment: Final Project
+* Lab section: B02
+* Completed by: Adam Yuen
+* Development Date: November 28, 2024
+*/
+
 import Implementation.*;
 
 import javax.swing.*;
@@ -132,13 +140,14 @@ public class MovieBrowser extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
             // Prompt the user to enter their article name and store it in the 'name' variable
-            String name = JOptionPane.showInputDialog("Enter Ticket Number to Cancel: ");
+            String ticketNumber = JOptionPane.showInputDialog("Enter Ticket Number to Cancel: ");
                     
-            if (name == null) {
+            if (ticketNumber == null) {
                 return;
             }
             else {
-                JOptionPane.showMessageDialog(null, "Cancelled or not, depending on time");
+                // Add refun percentage based on date
+                JOptionPane.showMessageDialog(null, "Ticket " + ticketNumber + " cancelled");
             }
 			}
 		});
@@ -146,16 +155,25 @@ public class MovieBrowser extends JPanel{
         submitSeatSelection.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int choice = JOptionPane.showConfirmDialog(null, "wtf",
+                String seatSelection = submitSeatSelection.getText();
+                int seat;
+                try {
+                    seat = Integer.parseInt(seatSelection);
+                }
+                catch (NumberFormatException a) {
+                    seat = -1;
+                }
+                int choice = JOptionPane.showConfirmDialog(null, "Purchase ticket for seat " + seat + "?",
 				"Confirm Purchase?", JOptionPane.YES_NO_CANCEL_OPTION);
 
             // Check the user's choice and display a corresponding message
             if (choice == JOptionPane.YES_OPTION) {
                 // If the user chose 'Yes', show a message indicating that changes are saved
-                JOptionPane.showMessageDialog(null, "Changes saved.");
+                String cardSelection = JOptionPane.showInputDialog("Enter Card Number");
+                
             } else if (choice == JOptionPane.NO_OPTION) {
                 // If the user chose 'No', show a message indicating that changes are not saved
-                JOptionPane.showMessageDialog(null, "Changes not saved.");
+                JOptionPane.showMessageDialog(null, "Purchase cancelled. You will not be charged");
             } else {
                 // If the user chose 'Cancel' or closed the dialog, show a message indicating the operation is canceled
                 JOptionPane.showMessageDialog(null, "Operation canceled.");
