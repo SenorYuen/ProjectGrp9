@@ -108,17 +108,18 @@ public class MovieBrowser extends JPanel{
         movieSelector.setBackground(Color.GRAY);
         movieSelector.setBounds(515, 140, 400, 30);
 
+
         // Logic for movie selector dropdown - rerenders the seat map for each new selection
         movieSelector.addActionListener(new ActionListener() {
             @Override
 			public void actionPerformed(ActionEvent e) {
                 // Clear current movie list to add the new showtimes for the specific movie
                 showtimeList.clear();
-				String selectedMovie = (String) movieSelector.getSelectedItem();
-            
+
+                String selectedMovie = (String) movieSelector.getSelectedItem();
                 // If the user is a RU, they get both the unreleased and released catalog of movies.
                 if (backendConnector.getAuthenticationStatus()) {
-                    // Iterate through the theater's catalogs to create a single one. 
+                    // Iterate through the theater's catalogs to create a single one.
                     for (Movie movie: backendConnector.getTheater().getUnreleasedCatalog()) {
                         if (movie.getName() == selectedMovie) {
                             showtimeList.add(movie.getShowtime().toString());
@@ -145,12 +146,15 @@ public class MovieBrowser extends JPanel{
                 showtimeSelector.setBackground(Color.GRAY);
                 showtimeSelector.setBounds(85, 140, 200, 30);
                 add(showtimeSelector);
+
+                seatGrid(backendConnector, selectedMovie);
 			}
         });
         add(movieSelector);
 
         // Construct a new seatgrid - shows available seats for the current movies
-        seatGrid(backendConnector);
+        String selectedMovie = (String) movieSelector.getSelectedItem();
+        seatGrid(backendConnector, selectedMovie);
 
         // Render a new dropdown for the showtimes of the currently selected movie.
         showtimeSelector = new JComboBox<String>(showtimeList);
@@ -227,7 +231,7 @@ public class MovieBrowser extends JPanel{
             }
         });
 
-        // Handle the logic for handling seat reservation. 
+        // Handle the logic for handling seat reservation.
         submitSeatSelection.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -236,8 +240,8 @@ public class MovieBrowser extends JPanel{
                 String selectedMovie = (String) movieSelector.getSelectedItem();
 
                 int numberOfOccupiedSeats = 0;
- 
-                // Determine the number of occupied seats for a given movie 
+
+                // Determine the number of occupied seats for a given movie
                 for (Movie movie: backendConnector.getTheater().getCatalog()) {
                     if (movie.getName().equals(selectedMovie)) {
                         for (Seat currentSeat: backendConnector.getTheater().getCatalog().get(0).getSeatMap()) {
@@ -276,7 +280,7 @@ public class MovieBrowser extends JPanel{
                 // Begin payment option logic
                 String cardSelection = JOptionPane.showInputDialog("Enter Card Number");
                 boolean cardNumberValid = false;
-                
+
                 // Determine validity of credid card info - assume link to banking services.
                 try {
                     Integer.parseInt(cardSelection);
@@ -298,7 +302,7 @@ public class MovieBrowser extends JPanel{
                             backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
                         }
                     }
-                    seatGrid(backendConnector);
+                    seatGrid(backendConnector, selectedMovie);
 
                     // Make Ticket --> Seat number (infobox), movie name (theater login object), theater location (theater login object)
                     Ticket userTicket = new Ticket(seat, movieName, theaterLocation);
@@ -364,33 +368,35 @@ public class MovieBrowser extends JPanel{
     }
 
     // Function for creating and rendering a seat map.
-    public void seatGrid(LoginSession backendConnector) {
+    public void seatGrid(LoginSession backendConnector, String selectedMovie) {
         // Creating the seat grid
         seatGrid = new JPanel(new GridLayout(5, 4, 5, 5));
         seatGrid.setBounds(515, 190, 400, 400);
 
         seatGrid.removeAll(); // Clear existing components
-        for (int i = 0; i < 20; i++) {
-            String selectedMovie = (String) movieSelector.getSelectedItem();
-            String seatStatus = "Free";
-            JTextField seatText = new JTextField("Seat " + (i+1) + ": " + seatStatus);
-            seatText.setBackground(Color.GREEN);
 
-            // Start rendering the seats, which are JTextFields
-            for (Movie movie: backendConnector.getTheater().getCatalog()) {
-                if (movie.getName().equals(selectedMovie)) {
-                    if (backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(i).getTaken()) {
-                        seatStatus = "Taken";
+        // Find the selected movie from the catalog
+        for (Movie movie : backendConnector.getTheater().getCatalog()) {
+            if (movie.getName().equals(selectedMovie)) {
+                ArrayList<Seat> seatMap = movie.getSeatMap();
+
+                for (int i = 0; i < seatMap.size(); i++) {
+                    JTextField seatText = new JTextField("        Seat " + (i + 1));
+                    seatText.setBackground(Color.GREEN);
+
+                    // Check if the seat is taken
+                    if (seatMap.get(i).getTaken()) {
                         seatText.setBackground(Color.RED);
-                        System.out.println(backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(i).getSeatNumber());
                     }
+
+                    seatGrid.add(seatText); // Add to the grid
                 }
             }
-            // needs theater accessing.
-            seatGrid.add(seatText, BorderLayout.CENTER);
         }
+
+        // Revalidate and repaint the grid
         seatGrid.revalidate();
         seatGrid.repaint();
-        add(seatGrid);
+        add(seatGrid); // Add the updated grid to the container
     }
 }
