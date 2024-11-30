@@ -112,10 +112,13 @@ public class MovieBrowser extends JPanel{
         movieSelector.addActionListener(new ActionListener() {
             @Override
 			public void actionPerformed(ActionEvent e) {
+                // Clear current movie list to add the new showtimes for the specific movie
                 showtimeList.clear();
 				String selectedMovie = (String) movieSelector.getSelectedItem();
-
+            
+                // If the user is a RU, they get both the unreleased and released catalog of movies.
                 if (backendConnector.getAuthenticationStatus()) {
+                    // Iterate through the theater's catalogs to create a single one. 
                     for (Movie movie: backendConnector.getTheater().getUnreleasedCatalog()) {
                         if (movie.getName() == selectedMovie) {
                             showtimeList.add(movie.getShowtime().toString());
@@ -127,6 +130,7 @@ public class MovieBrowser extends JPanel{
                         }
                     }
                 }
+                // If they are not a RU, they get only the normal seatmap
                 else {
                     for (Movie movie: backendConnector.getTheater().getCatalog()){
                         if (movie.getName() == selectedMovie) {
@@ -134,6 +138,7 @@ public class MovieBrowser extends JPanel{
                         }
                     }
                 }
+                // Rerender the showtime selector to reflect the new showtimes of a selected movie
                 remove(showtimeSelector);
                 showtimeSelector = new JComboBox<String>(showtimeList);
                 showtimeSelector.setFont(new Font("Calibri", Font.PLAIN, 20));
@@ -144,8 +149,10 @@ public class MovieBrowser extends JPanel{
         });
         add(movieSelector);
 
+        // Construct a new seatgrid - shows available seats for the current movies
         seatGrid(backendConnector);
 
+        // Render a new dropdown for the showtimes of the currently selected movie.
         showtimeSelector = new JComboBox<String>(showtimeList);
         showtimeSelector.setFont(new Font("Calibri", Font.PLAIN, 20));
         showtimeSelector.setBackground(Color.GRAY);
@@ -183,12 +190,14 @@ public class MovieBrowser extends JPanel{
         backButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+                // change the current contentpane to the homepage to emulate going back.
 				Homepage homepage = new Homepage(mainWindow);
 				mainWindow.setContentPane(homepage);
 				mainWindow.revalidate();
 			}
 		});
 
+        // Logic to cancel a ticket
         cancelTicketLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -201,12 +210,14 @@ public class MovieBrowser extends JPanel{
                     return;
                 }
 
+                // Determine the validity of the ticket number and handle cancellation logic
                 try {
                     int ticketNum = Integer.parseInt(ticketNumber);
 
                     if (ticketNum <= 0) {
                         JOptionPane.showMessageDialog(null, "Invalid Receipt Number. Please enter a valid number.");
                     } else {
+                        // If a ticket is valid then it will be cancelled
                         // Add refund percentage based on date or proceed with cancellation
                         JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled.");
                     }
@@ -216,6 +227,7 @@ public class MovieBrowser extends JPanel{
             }
         });
 
+        // Handle the logic for handling seat reservation. 
         submitSeatSelection.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -224,25 +236,27 @@ public class MovieBrowser extends JPanel{
                 String selectedMovie = (String) movieSelector.getSelectedItem();
 
                 int numberOfOccupiedSeats = 0;
-
+ 
+                // Determine the number of occupied seats for a given movie 
                 for (Movie movie: backendConnector.getTheater().getCatalog()) {
                     if (movie.getName().equals(selectedMovie)) {
                         for (Seat currentSeat: backendConnector.getTheater().getCatalog().get(0).getSeatMap()) {
                             if (currentSeat.getTaken()) {
                                 numberOfOccupiedSeats++;
-                                JOptionPane.showMessageDialog(null, "10% of seats for this unreleased movie have already been booked.");
-                                return;
                             }
                         }
                     }
                 }
 
+                // If a movie is in the uncreleased catalog then restrict 90% of the seats
                 for (Movie movie: backendConnector.getTheater().getUnreleasedCatalog()) {
                     if (movie.getName().equals(selectedMovie) && numberOfOccupiedSeats > 2) {
-
+                        JOptionPane.showMessageDialog(null, "10% of seats for this unreleased movie have already been booked.");
+                        return;
                     }
                 }
 
+                // Enusre that a seat is valid.
                 try {
                     int seatNum = Integer.parseInt(seat);
 
@@ -257,11 +271,13 @@ public class MovieBrowser extends JPanel{
                     JOptionPane.showMessageDialog(null, "Invalid input. Please enter a numeric seat number.");
                 }
 
-            // Check the user's choice and display a corresponding message
+            // If the user confirms their payment and is not a RU.
             if (choice == JOptionPane.YES_OPTION && !backendConnector.getAuthenticationStatus()) {
-                // If the user chose 'Yes', show a message indicating that changes are saved
+                // Begin payment option logic
                 String cardSelection = JOptionPane.showInputDialog("Enter Card Number");
                 boolean cardNumberValid = false;
+                
+                // Determine validity of credid card info - assume link to banking services.
                 try {
                     Integer.parseInt(cardSelection);
                     cardNumberValid = true;}
@@ -269,12 +285,14 @@ public class MovieBrowser extends JPanel{
                     JOptionPane.showMessageDialog(null, "Invalid Payment Info, please try again");
                 }
 
+                // Assuming the banking info was valid, then we begin creation of all payment related objects.
                 if (cardNumberValid) {
                     String movieName = "grab from theater instance";
                     String theaterLocation = "grab from theater";
                     String currentDate = LocalDate.now().toString();
                     Double ticketCost = 90.0;
 
+                    // Set the selected seat status to occupied.
                     for (Movie movie: backendConnector.getTheater().getCatalog()) {
                         if (movie.getName().equals(selectedMovie)) {
                             backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
@@ -305,7 +323,7 @@ public class MovieBrowser extends JPanel{
                 }
 
 
-
+            // If the user confirms their ticket and is a RU, begin creating the payment related objects.
             } else if (choice == JOptionPane.YES_OPTION && backendConnector.getAuthenticationStatus()) {
                 String movieName = "grab from theater instance";
                 String theaterLocation = "grab from theater";
@@ -345,6 +363,7 @@ public class MovieBrowser extends JPanel{
         setVisible(true);
     }
 
+    // Function for creating and rendering a seat map.
     public void seatGrid(LoginSession backendConnector) {
         // Creating the seat grid
         seatGrid = new JPanel(new GridLayout(5, 4, 5, 5));
@@ -357,7 +376,7 @@ public class MovieBrowser extends JPanel{
             JTextField seatText = new JTextField("Seat " + (i+1) + ": " + seatStatus);
             seatText.setBackground(Color.GREEN);
 
-
+            // Start rendering the seats, which are JTextFields
             for (Movie movie: backendConnector.getTheater().getCatalog()) {
                 if (movie.getName().equals(selectedMovie)) {
                     if (backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(i).getTaken()) {
