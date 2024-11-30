@@ -217,6 +217,27 @@ public class MovieBrowser extends JPanel{
             public void mouseClicked(MouseEvent e) {
                 int choice = JOptionPane.NO_OPTION;
                 String seat = seatSelector.getText();
+                String selectedMovie = (String) movieSelector.getSelectedItem();
+
+                int numberOfOccupiedSeats = 0;
+
+                for (Movie movie: backendConnector.getTheater().getCatalog()) {
+                    if (movie.getName().equals(selectedMovie)) {
+                        for (Seat currentSeat: backendConnector.getTheater().getCatalog().get(0).getSeatMap()) {
+                            if (currentSeat.getTaken()) {
+                                numberOfOccupiedSeats++;
+                                JOptionPane.showMessageDialog(null, "10% of seats for this unreleased movie have already been booked.");
+                                return;
+                            }
+                        }
+                    }
+                }
+
+                for (Movie movie: backendConnector.getTheater().getUnreleasedCatalog()) {
+                    if (movie.getName().equals(selectedMovie) && numberOfOccupiedSeats > 2) {
+
+                    }
+                }
 
                 try {
                     int seatNum = Integer.parseInt(seat);
@@ -249,8 +270,6 @@ public class MovieBrowser extends JPanel{
                     String theaterLocation = "grab from theater";
                     String currentDate = LocalDate.now().toString();
                     Double ticketCost = 90.0;
-
-                    String selectedMovie = (String) movieSelector.getSelectedItem();
 
                     for (Movie movie: backendConnector.getTheater().getCatalog()) {
                         if (movie.getName().equals(selectedMovie)) {
@@ -298,7 +317,7 @@ public class MovieBrowser extends JPanel{
                 // Receipt --> amount = 90, from prev, from before, from ui.
                 Receipt userReceipt = new Receipt(ticketCost, currentDate, movieName, seat);
 
-                // make ui thing display shit, destory objects. revaldiate page. done.
+                // make ui thing display stuff, destroy objects. revaldiate page. done.
                 JOptionPane.showMessageDialog(
                     null,
                     "Payment Successful. A copy of this receipt was emailed to <email from login>" +
@@ -307,7 +326,7 @@ public class MovieBrowser extends JPanel{
                     "\nSeat: " + seat +
                     "\nPrice: $" + ticketCost +
                     "\nCard Number: " + "PLACEHOLDER NUMBER"
-                    );
+                );
             } else if (choice == JOptionPane.NO_OPTION) {
                 // If the user chose 'No', show a message indicating that changes are not saved
                 JOptionPane.showMessageDialog(null, "Purchase cancelled. You will not be charged");
