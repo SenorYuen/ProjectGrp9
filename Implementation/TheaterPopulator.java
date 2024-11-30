@@ -6,7 +6,7 @@ public class TheaterPopulator {
 
     public static Theater populateTheater(){
         ArrayList<Seat> seatMap = new ArrayList<Seat>();
-        for(int i = 0; i < 20; i++){
+        for(int i = 1; i < 21; i++){
             Seat seatCreated = new Seat(i, false, 90.00);
             seatMap.add(seatCreated);
         }

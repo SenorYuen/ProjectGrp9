@@ -49,7 +49,4 @@ public class Seat{
     public void setPrice(double newPrice){
         this.price = newPrice;
     }
-
-
-
 }

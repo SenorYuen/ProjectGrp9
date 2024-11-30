@@ -104,6 +104,7 @@ public class MovieBrowser extends JPanel{
         movieSelector.setFont(new Font("Calibri", Font.PLAIN, 20));
         movieSelector.setBackground(Color.GRAY);
         movieSelector.setBounds(515, 140, 400, 30);
+
         movieSelector.addActionListener(new ActionListener() {
             @Override
 			public void actionPerformed(ActionEvent e) {
@@ -123,7 +124,7 @@ public class MovieBrowser extends JPanel{
                     }
                 }
                 else {
-                    for(Movie movie: backendConnector.getTheater().getCatalog()){
+                    for (Movie movie: backendConnector.getTheater().getCatalog()){
                         if (movie.getName() == selectedMovie) {
                             showtimeList.add(movie.getShowtime().toString());
                         }
@@ -139,21 +140,15 @@ public class MovieBrowser extends JPanel{
         });
         add(movieSelector);
 
+        seatGrid(backendConnector);
+
         showtimeSelector = new JComboBox<String>(showtimeList);
         showtimeSelector.setFont(new Font("Calibri", Font.PLAIN, 20));
         showtimeSelector.setBackground(Color.GRAY);
         showtimeSelector.setBounds(85, 140, 200, 30);
 
         add(showtimeSelector);
-        // Creating the seat grid
-        seatGrid = new JPanel(new GridLayout(5, 4, 5, 5));
-        seatGrid.setBounds(515, 190, 400, 400);
-        for (int i = 0; i < 20; i++) {
-            // needs theater accessing.
-            JTextField seatText = new JTextField("Seat " + (i+1) + ":  Free");
-            seatGrid.add(seatText, BorderLayout.CENTER);
-        }
-        add(seatGrid);
+
 
         // Seat selector field
         seatSelector = new JTextField();
@@ -194,7 +189,7 @@ public class MovieBrowser extends JPanel{
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Prompt the user to enter their ticket number
-                String ticketNumber = JOptionPane.showInputDialog("Enter Ticket Number to Cancel:");
+                String ticketNumber = JOptionPane.showInputDialog("Enter Receipt Number to Cancel:");
 
                 // Check if the input is null or invalid
                 if (ticketNumber == null) {
@@ -206,7 +201,7 @@ public class MovieBrowser extends JPanel{
                     int ticketNum = Integer.parseInt(ticketNumber);
 
                     if (ticketNum <= 0) {
-                        JOptionPane.showMessageDialog(null, "Invalid Ticket Number. Please enter a valid number.");
+                        JOptionPane.showMessageDialog(null, "Invalid Receipt Number. Please enter a valid number.");
                     } else {
                         // Add refund percentage based on date or proceed with cancellation
                         JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled.");
@@ -255,6 +250,15 @@ public class MovieBrowser extends JPanel{
                     String currentDate = LocalDate.now().toString();
                     Double ticketCost = 90.0;
 
+                    String selectedMovie = (String) movieSelector.getSelectedItem();
+
+                    for (Movie movie: backendConnector.getTheater().getCatalog()) {
+                        if (movie.getName().equals(selectedMovie)) {
+                            backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
+                        }
+                    }
+                    seatGrid(backendConnector);
+
                     // Make Ticket --> Seat number (infobox), movie name (theater login object), theater location (theater login object)
                     Ticket userTicket = new Ticket(seat, movieName, theaterLocation);
 
@@ -272,9 +276,13 @@ public class MovieBrowser extends JPanel{
                         "\nMovie: " + movieName +
                         "\nSeat: " + seat +
                         "\nPrice: $" + ticketCost +
-                        "\nCard Number: " + cardSelection
+                        "\nCard Number: " + cardSelection +
+                        "\nDate: " + currentDate
                         );
                 }
+
+
+
             } else if (choice == JOptionPane.YES_OPTION && backendConnector.getAuthenticationStatus()) {
                 String movieName = "grab from theater instance";
                 String theaterLocation = "grab from theater";
@@ -312,5 +320,32 @@ public class MovieBrowser extends JPanel{
 
 
         setVisible(true);
+    }
+
+    public void seatGrid(LoginSession backendConnector) {
+        // Creating the seat grid
+        seatGrid = new JPanel(new GridLayout(5, 4, 5, 5));
+        seatGrid.setBounds(515, 190, 400, 400);
+
+        seatGrid.removeAll(); // Clear existing components
+        for (int i = 0; i < 20; i++) {
+            String selectedMovie = (String) movieSelector.getSelectedItem();
+            String seatStatus = "Free";
+
+            for (Movie movie: backendConnector.getTheater().getCatalog()) {
+                if (movie.getName().equals(selectedMovie)) {
+                    if (backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(i).getTaken()) {
+                        seatStatus = "Taken";
+                        System.out.println(backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(i).getSeatNumber());
+                    }
+                }
+            }
+            // needs theater accessing.
+            JTextField seatText = new JTextField("Seat " + (i+1) + ": " + seatStatus);
+            seatGrid.add(seatText, BorderLayout.CENTER);
+        }
+        seatGrid.revalidate();
+        seatGrid.repaint();
+        add(seatGrid);
     }
 }
