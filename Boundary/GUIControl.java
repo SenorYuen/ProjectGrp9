@@ -16,6 +16,7 @@ public class GUIControl extends JFrame {
     private static final long serialVersionUID = 1L;
 
     GUIControl() {
+        // Create the JFrame in which all panels will be placed on.
         window = new JFrame();
         homepage = new Homepage(window);
         window.setTitle("title");

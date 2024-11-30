@@ -148,6 +148,7 @@ public class Registration extends JPanel {
         developerNote.setBounds(520, 650, 400, 30);
         add(developerNote);
 
+        // Backbutton to render a homepage jpanel to emulate return home functionality
         backButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -157,15 +158,18 @@ public class Registration extends JPanel {
 			}
 		});
 
+        // Logic to handle amalgamating data and then 
         signUpButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+                // Grab all of the data from the text fields
                 String email = emailBox.getText();
                 String passwordInitial = String.valueOf(passwordBox.getPassword());
                 String passwordFinal = String.valueOf(confirmPasswordBox.getPassword());
                 String cardNumber = cardField.getText();
                 String name = nameField.getText();
 
+                // Ensure password match
                 if (!passwordInitial.equals(passwordFinal)) {
                     JOptionPane.showMessageDialog(null, "Passwords do not match");
                     return;
