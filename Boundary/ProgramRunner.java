@@ -8,7 +8,7 @@ package Boundary;
 * Development Date: November 28, 2024
 */
 
-public class TempMain {
+public class ProgramRunner {
     public static void main(String[] args) {
         GUIControl programInstance = new GUIControl();
     }
