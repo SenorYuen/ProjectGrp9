@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class MovieBrowser extends JPanel{
+    // Declaration of GUI components
     private JLabel header;
     private JLabel backButton;
     private Vector<String> tentativeMovieList;
@@ -33,6 +34,7 @@ public class MovieBrowser extends JPanel{
     private JLabel developerNote;
     private JLabel annualFeeLabel;
 
+    // Constrcutor to create the primary JPanel for booking tickets and whatnot
     MovieBrowser(JFrame mainWindow, LoginSession backendConnector) {
         tentativeMovieList = new Vector<>(backendConnector.getMovieNames());
         showtimeList = new Vector<>(); // Initialize showtimeList
@@ -65,7 +67,7 @@ public class MovieBrowser extends JPanel{
         cancelTicketLabel.setForeground(Color.BLACK);
         add(cancelTicketLabel);
 
-        // Creating a membership payment field
+        // Creating a membership payment field - only appears for registered users.
         if (backendConnector.getAuthenticationStatus()) {
             annualFeeLabel = new JLabel("Pay Annual membership Fee");
             annualFeeLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -73,6 +75,7 @@ public class MovieBrowser extends JPanel{
             annualFeeLabel.setFont(new Font("Calibri", Font.PLAIN, 23));
             annualFeeLabel.setBounds(250, 20, 300, 30);
             annualFeeLabel.setForeground(Color.BLACK);
+            // Add listener to invoke a payment recieved notification for registered users
             annualFeeLabel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -82,7 +85,7 @@ public class MovieBrowser extends JPanel{
             add(annualFeeLabel);
         }
 
-        // Current theater label creation
+        // Current theater label creation - hardcoded for single theater implementation
         currentTheater = new JLabel("Current Theater: ICT 028");
         currentTheater.setHorizontalAlignment(SwingConstants.CENTER);
         currentTheater.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -105,6 +108,7 @@ public class MovieBrowser extends JPanel{
         movieSelector.setBackground(Color.GRAY);
         movieSelector.setBounds(515, 140, 400, 30);
 
+        // Logic for movie selector dropdown - rerenders the seat map for each new selection
         movieSelector.addActionListener(new ActionListener() {
             @Override
 			public void actionPerformed(ActionEvent e) {
@@ -350,17 +354,20 @@ public class MovieBrowser extends JPanel{
         for (int i = 0; i < 20; i++) {
             String selectedMovie = (String) movieSelector.getSelectedItem();
             String seatStatus = "Free";
+            JTextField seatText = new JTextField("Seat " + (i+1) + ": " + seatStatus);
+            seatText.setBackground(Color.GREEN);
+
 
             for (Movie movie: backendConnector.getTheater().getCatalog()) {
                 if (movie.getName().equals(selectedMovie)) {
                     if (backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(i).getTaken()) {
                         seatStatus = "Taken";
+                        seatText.setBackground(Color.RED);
                         System.out.println(backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(i).getSeatNumber());
                     }
                 }
             }
             // needs theater accessing.
-            JTextField seatText = new JTextField("Seat " + (i+1) + ": " + seatStatus);
             seatGrid.add(seatText, BorderLayout.CENTER);
         }
         seatGrid.revalidate();
