@@ -223,6 +223,13 @@ public class MovieBrowser extends JPanel{
                     } else {
                         // If a ticket is valid then it will be cancelled
                         // Add refund percentage based on date or proceed with cancellation
+                        for (Receipt currReceipt: theater.getReceiptStorage()) {
+                            if (Integer.parseInt(ticketNumber) == currReceipt.getId()) {
+                                if (currReceipt.getIssueDate()) {
+
+                                }
+                            }
+                        }
                         JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled.");
                     }
                 } catch (NumberFormatException ex) {
@@ -316,7 +323,7 @@ public class MovieBrowser extends JPanel{
                     // make ui thing display shit, destory objects. revaldiate page. done.
                     JOptionPane.showMessageDialog(
                         null,
-                        "Payment Successful. A copy of this receipt was emailed to <email from login>" +
+                        "Payment Successful. A copy of this receipt was emailed to you." +
                         "\n\nReceipt ID: " + String.valueOf(userReceipt.getId()) +
                         "\nMovie: " + movieName +
                         "\nSeat: " + seat +
@@ -351,10 +358,11 @@ public class MovieBrowser extends JPanel{
                 Ticket userTicket = new Ticket(seat, movieName, theaterLocation);
 
                 // Make Payment --> paymentDate (make current date, make string), payment amount = $90, card number, take prev ticket.
-                Payment userPayment = new Payment(currentDate, ticketCost, "PLACEHOLDER NUMBER", userTicket);
+                Payment userPayment = new Payment(currentDate, ticketCost, backendConnector.getCard(), userTicket);
 
                 // Receipt --> amount = 90, from prev, from before, from ui.
                 Receipt userReceipt = new Receipt(ticketCost, currentDate, movieName, seat);
+                theater.getReceiptStorage().add(userReceipt);
 
                 // make ui thing display stuff, destroy objects. revaldiate page. done.
                 JOptionPane.showMessageDialog(
@@ -393,8 +401,9 @@ public class MovieBrowser extends JPanel{
                 ArrayList<Seat> seatMap = movie.getSeatMap();
 
                 for (int i = 0; i < seatMap.size(); i++) {
-                    JTextField seatText = new JTextField("        Seat " + (i + 1));
+                    JTextField seatText = new JTextField("Seat " + (i + 1));
                     seatText.setBackground(Color.GREEN);
+                    seatText.setHorizontalAlignment(SwingConstants.CENTER);
 
                     // Check if the seat is taken
                     if (seatMap.get(i).getTaken()) {

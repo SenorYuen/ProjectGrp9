@@ -12,7 +12,7 @@ public class Theater{
     private ArrayList<Movie> catalog;
     private ArrayList<Movie> unreleasedCatalog;
     private String location;
-    private ArrayList<Payment> paymentStorage = new ArrayList<Payment>(1);
+    private ArrayList<Receipt> receiptStorage = new ArrayList<Receipt>(1);
     private ArrayList<RegisteredCustomer> userStorage = new ArrayList<RegisteredCustomer>(1);
 
 
@@ -51,6 +51,10 @@ public class Theater{
 
     public ArrayList<RegisteredCustomer> getUserStorage() {
         return this.userStorage;
+    }
+
+    public ArrayList<Receipt> getReceiptStorage() {
+        return receiptStorage;
     }
 
     // End of GETTERS and SETTERS

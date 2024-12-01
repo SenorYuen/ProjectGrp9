@@ -23,6 +23,14 @@ public class LoginSession {
         this.currentUser.setPassword(password);
     }
 
+    public String getCard() {
+        if (currentUser instanceof RegisteredCustomer) {
+            RegisteredCustomer currentReg = (RegisteredCustomer) this.currentUser;
+            return currentReg.getCardNumber();
+        }
+        return "";
+    }
+
     // Constructor
     public LoginSession(boolean auth, String username, String password, Theater theater){
         this.authenticated = auth;
