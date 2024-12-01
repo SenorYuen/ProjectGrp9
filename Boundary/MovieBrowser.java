@@ -228,7 +228,7 @@ public class MovieBrowser extends JPanel{
                                 Date movieShowtime;
                                 LocalDate expired = LocalDate.now();
                                 String curMovie = currReceipt.getMovieName();
-                                System.out.println(curMovie);
+
                                 for (Movie movie: theater.getCatalog()) {
                                     if (movie.getName().equals(curMovie)) {
                                         movieShowtime = movie.getShowtime();
@@ -242,7 +242,6 @@ public class MovieBrowser extends JPanel{
                                     }
                                 }
 
-                                System.out.println(expired);
                                 if (LocalDate.now().isBefore(expired)) {
                                     if (backendConnector.getAuthenticationStatus()) {
                                         JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled. Received 100% refund");
@@ -250,7 +249,6 @@ public class MovieBrowser extends JPanel{
                                     else {
                                         JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled. Received 85% refund");
                                     }
-
                                 }
                                 else {
                                     JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " is not refundable");
@@ -326,7 +324,7 @@ public class MovieBrowser extends JPanel{
                 // Assuming the banking info was valid, then we begin creation of all payment related objects.
                 if (cardNumberValid) {
                     String movieName = selectedMovie;
-                    String theaterLocation = "grab from theater";
+                    String theaterLocation = theater.getLocation();
                     LocalDate currentDate = LocalDate.now();
                     Double ticketCost = 90.0;
 
@@ -345,7 +343,8 @@ public class MovieBrowser extends JPanel{
                     Payment userPayment = new Payment(currentDate, ticketCost, cardSelection, userTicket);
 
                     // Receipt --> amount = 90, from prev, from before, from ui.
-                    Receipt userReceipt = userPayment.getReceipt();
+                    Receipt userReceipt = new Receipt(ticketCost, currentDate, movieName, seat);
+                    theater.getReceiptStorage().add(userReceipt);
 
                     // make ui thing display shit, destory objects. revaldiate page. done.
                     JOptionPane.showMessageDialog(
