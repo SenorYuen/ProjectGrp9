@@ -228,6 +228,7 @@ public class MovieBrowser extends JPanel{
                                 Date movieShowtime;
                                 LocalDate expired = LocalDate.now();
                                 String curMovie = currReceipt.getMovieName();
+                                System.out.println(curMovie);
                                 for (Movie movie: theater.getCatalog()) {
                                     if (movie.getName().equals(curMovie)) {
                                         movieShowtime = movie.getShowtime();
@@ -241,6 +242,7 @@ public class MovieBrowser extends JPanel{
                                     }
                                 }
 
+                                System.out.println(expired);
                                 if (LocalDate.now().isBefore(expired)) {
                                     if (backendConnector.getAuthenticationStatus()) {
                                         JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled. Received 100% refund");
@@ -249,6 +251,9 @@ public class MovieBrowser extends JPanel{
                                         JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled. Received 85% refund");
                                     }
 
+                                }
+                                else {
+                                    JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " is not refundable");
                                 }
                             }
                         }
@@ -320,7 +325,7 @@ public class MovieBrowser extends JPanel{
 
                 // Assuming the banking info was valid, then we begin creation of all payment related objects.
                 if (cardNumberValid) {
-                    String movieName = "grab from theater instance";
+                    String movieName = selectedMovie;
                     String theaterLocation = "grab from theater";
                     LocalDate currentDate = LocalDate.now();
                     Double ticketCost = 90.0;
@@ -358,7 +363,7 @@ public class MovieBrowser extends JPanel{
 
             // If the user confirms their ticket and is a RU, begin creating the payment related objects.
             } else if (choice == JOptionPane.YES_OPTION && backendConnector.getAuthenticationStatus()) {
-                String movieName = "grab from theater instance";
+                String movieName = selectedMovie;
                 String theaterLocation = "grab from theater";
                 LocalDate currentDate = LocalDate.now();
                 Double ticketCost = 90.0;
@@ -442,8 +447,9 @@ public class MovieBrowser extends JPanel{
                 ArrayList<Seat> seatMap = movie.getSeatMap();
 
                 for (int i = 0; i < seatMap.size(); i++) {
-                    JTextField seatText = new JTextField("        Seat " + (i + 1));
+                    JTextField seatText = new JTextField("Seat " + (i + 1));
                     seatText.setBackground(Color.GREEN);
+                    seatText.setHorizontalAlignment(SwingConstants.CENTER);
 
                     // Check if the seat is taken
                     if (seatMap.get(i).getTaken()) {
