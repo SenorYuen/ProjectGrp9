@@ -1,5 +1,7 @@
 package Implementation;
 
+import java.time.LocalDate;
+
 /*
 * File Name: Payment.java
 * Assignment: Final Project
@@ -9,13 +11,13 @@ package Implementation;
 */
 
 public class Payment {
-    private String paymentDate;
+    private LocalDate paymentDate;
     private String cardNumber;
     private Ticket ticket;
     private Receipt receipt;
 
     // Constructor
-    public Payment(String paymentDate, double amountPaid, String cardNumber, Ticket ticket){
+    public Payment(LocalDate paymentDate, double amountPaid, String cardNumber, Ticket ticket){
         this.paymentDate = paymentDate;
         this.cardNumber = cardNumber;
         this.ticket = ticket;
@@ -36,7 +38,7 @@ public class Payment {
         this.ticket = ticket;
     }
 
-    public String getPaymentDate() {
+    public LocalDate getPaymentDate() {
         return this.paymentDate;
     }
 
@@ -48,7 +50,7 @@ public class Payment {
         return this.receipt;
     }
 
-    public void setPaymentDate(String paymentDate) {
+    public void setPaymentDate(LocalDate paymentDate) {
         this.paymentDate = paymentDate;
     }
 
@@ -56,6 +58,6 @@ public class Payment {
         this.cardNumber = cardNumber;
     }
 
-    // end of GETTERS and SETTERS 
+    // end of GETTERS and SETTERS
 
 }

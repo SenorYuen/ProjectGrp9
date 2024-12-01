@@ -225,12 +225,34 @@ public class MovieBrowser extends JPanel{
                         // Add refund percentage based on date or proceed with cancellation
                         for (Receipt currReceipt: theater.getReceiptStorage()) {
                             if (Integer.parseInt(ticketNumber) == currReceipt.getId()) {
-                                if (currReceipt.getIssueDate()) {
+                                Date movieShowtime;
+                                LocalDate expired = LocalDate.now();
+                                String curMovie = currReceipt.getMovieName();
+                                for (Movie movie: theater.getCatalog()) {
+                                    if (movie.getName().equals(curMovie)) {
+                                        movieShowtime = movie.getShowtime();
+                                        expired = LocalDate.of(movieShowtime.getYear(), movieShowtime.getMonth(), movieShowtime.getDay());
+                                    }
+                                }
+                                for (Movie movie: theater.getUnreleasedCatalog()) {
+                                    if (movie.getName().equals(curMovie)) {
+                                        movieShowtime = movie.getShowtime();
+                                        expired = LocalDate.of(movieShowtime.getYear(), movieShowtime.getMonth(), movieShowtime.getDay());
+                                    }
+                                }
+
+                                if (LocalDate.now().isBefore(expired)) {
+                                    if (backendConnector.getAuthenticationStatus()) {
+                                        JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled. Received 100% refund");
+                                    }
+                                    else {
+                                        JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled. Received 85% refund");
+                                    }
 
                                 }
                             }
                         }
-                        JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled.");
+
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Invalid input. Please enter a numeric ticket number.");
@@ -300,7 +322,7 @@ public class MovieBrowser extends JPanel{
                 if (cardNumberValid) {
                     String movieName = "grab from theater instance";
                     String theaterLocation = "grab from theater";
-                    String currentDate = LocalDate.now().toString();
+                    LocalDate currentDate = LocalDate.now();
                     Double ticketCost = 90.0;
 
                     // Set the selected seat status to occupied.
@@ -329,7 +351,7 @@ public class MovieBrowser extends JPanel{
                         "\nSeat: " + seat +
                         "\nPrice: $" + ticketCost +
                         "\nCard Number: " + cardSelection +
-                        "\nDate: " + currentDate
+                        "\nDate: " + currentDate.toString()
                         );
                 }
 
@@ -338,7 +360,7 @@ public class MovieBrowser extends JPanel{
             } else if (choice == JOptionPane.YES_OPTION && backendConnector.getAuthenticationStatus()) {
                 String movieName = "grab from theater instance";
                 String theaterLocation = "grab from theater";
-                String currentDate = LocalDate.now().toString();
+                LocalDate currentDate = LocalDate.now();
                 Double ticketCost = 90.0;
 
                 // Set the selected seat status to occupied.
@@ -372,7 +394,8 @@ public class MovieBrowser extends JPanel{
                     "\nMovie: " + movieName +
                     "\nSeat: " + seat +
                     "\nPrice: $" + ticketCost +
-                    "\nCard Number: " + "PLACEHOLDER NUMBER"
+                    "\nCard Number: " + "PLACEHOLDER NUMBER" +
+                    "\nDate: " + currentDate.toString()
                 );
             } else if (choice == JOptionPane.NO_OPTION) {
                 // If the user chose 'No', show a message indicating that changes are not saved

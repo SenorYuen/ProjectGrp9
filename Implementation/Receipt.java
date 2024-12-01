@@ -1,8 +1,10 @@
 package Implementation;
 
+import java.time.LocalDate;
+
 public class Receipt {
     private double amountPaid;
-    private String issueDate;
+    private LocalDate issueDate;
     private String movieName;
     private String seatNumber;
     private int id;
@@ -10,7 +12,7 @@ public class Receipt {
     static private int idCounter = 1000;
 
     // Constructor
-    public Receipt(double amountPaid, String issueDate, String movieName, String seatNumber){
+    public Receipt(double amountPaid, LocalDate issueDate, String movieName, String seatNumber){
         this.amountPaid = amountPaid;
         this.issueDate = issueDate;
         this.movieName = movieName;
@@ -33,11 +35,11 @@ public class Receipt {
     }
 
     // Getter and Setter for issueDate
-    public String getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(String issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 

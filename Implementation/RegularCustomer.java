@@ -43,7 +43,7 @@ public class RegularCustomer implements Person{
         Ticket ticket = new Ticket(String.valueOf(seatNumber), movieChosen, theaterLocation);
 
         Payment paymentMade = new Payment(
-            LocalDate.now().toString(),
+            LocalDate.now(),
             amountPaid,
             "Credit Card",
             ticket

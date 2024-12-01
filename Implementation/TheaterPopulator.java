@@ -14,14 +14,14 @@ public class TheaterPopulator {
         Movie movie1 = new Movie(
             "Finding Fahmi",
             30,
-            new Date(3, 9, 2004, "13:00"),
+            new Date(1, 12, 2024, "13:00"),
             seatMap
         );
 
         Movie movie2 = new Movie(
             "Stacklin's enqueue to the Heap",
             900,
-            new Date(5, 4, 1960, "00:00"),
+            new Date(25, 12, 2024, "00:00"),
             seatMap
         );
 
