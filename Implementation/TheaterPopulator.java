@@ -1,6 +1,8 @@
 package Implementation;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
 
 // Creates placeholder values in the theater
 public class TheaterPopulator {
@@ -41,11 +43,12 @@ public class TheaterPopulator {
         unreleasedCatalog.add(movie3);
 
         RegisteredCustomer user1 = new RegisteredCustomer(
-        "phil", "phil", "phil", "1234"
+        "phil", "phil", "phil", "1234", null
         );
 
+        LocalDate notExactlyNow = LocalDate.of(2023, 10, 10);
         RegisteredCustomer user2 = new RegisteredCustomer(
-        "dada", "dada", "dada", "5678"
+        "dada", "dada", "dada", "5678", notExactlyNow
         );
 
         ArrayList<RegisteredCustomer> userStorage = new ArrayList<>();

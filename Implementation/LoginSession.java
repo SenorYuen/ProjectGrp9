@@ -1,5 +1,6 @@
 package Implementation;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class LoginSession {
@@ -35,6 +36,15 @@ public class LoginSession {
         }
         return "";
     }
+
+    public LocalDate getAccountCreationDate() {
+        if (currentUser instanceof RegisteredCustomer) {
+            RegisteredCustomer currentReg = (RegisteredCustomer) this.currentUser;
+            return currentReg.getLocalDate();
+        }
+        return LocalDate.now();
+    }
+
 
     // Constructor
     public LoginSession(boolean auth, String username, String password, Theater theater){

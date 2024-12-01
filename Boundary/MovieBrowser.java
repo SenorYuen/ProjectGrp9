@@ -79,7 +79,11 @@ public class MovieBrowser extends JPanel{
             annualFeeLabel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    JOptionPane.showMessageDialog(null, "Payment Received, Thank You! (add date time functionality later))");
+                    LocalDate afterYear = backendConnector.getAccountCreationDate().plusYears(1);
+                    if (LocalDate.now().isAfter(afterYear)) {
+                        JOptionPane.showMessageDialog(null, "Payment Received, Thank You!");
+                    }
+                    JOptionPane.showMessageDialog(null, "Payment already completed! Due on: " + afterYear.toString());
                 }
             });
             add(annualFeeLabel);

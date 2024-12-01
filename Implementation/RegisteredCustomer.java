@@ -16,13 +16,20 @@ public class RegisteredCustomer implements Person{
     private String email;
     private String password;
     private String cardNumber;
+    private LocalDate accountCreation;
 
     // Constructor
-    public RegisteredCustomer(String name, String email, String password, String cardNumber) {
+    public RegisteredCustomer(String name, String email, String password, String cardNumber, LocalDate optional) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.cardNumber = cardNumber;
+        if (optional != null) {
+            this.accountCreation = optional;
+        }
+        else {
+            accountCreation = LocalDate.now();
+        }
     }
 
     // GETTERS and SETTERS
@@ -56,6 +63,10 @@ public class RegisteredCustomer implements Person{
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    public LocalDate getLocalDate() {
+        return accountCreation;
     }
 
     // End of GETTERS and SETTERS
