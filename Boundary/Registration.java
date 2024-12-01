@@ -178,12 +178,10 @@ public class Registration extends JPanel {
                 // Add username duplicate validation with database
 
                 RegisteredCustomer newRUInstance = new RegisteredCustomer(name, email, passwordFinal, cardNumber);
-                // Dump all fields into the database.
-
-                // Update Login Session
-                backendConnector.setEnteredUsername(email);
-                backendConnector.setEnteredPassword(passwordFinal);
-
+                theater.getUserStorage().add(newRUInstance);
+                Homepage moviePane = new Homepage(mainWindow, theater);
+                mainWindow.setContentPane(moviePane);
+                mainWindow.revalidate();
 			}
 		});
 
