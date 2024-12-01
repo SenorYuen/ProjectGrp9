@@ -334,6 +334,19 @@ public class MovieBrowser extends JPanel{
                 String currentDate = LocalDate.now().toString();
                 Double ticketCost = 90.0;
 
+                // Set the selected seat status to occupied.
+                for (Movie movie: backendConnector.getTheater().getCatalog()) {
+                    if (movie.getName().equals(selectedMovie)) {
+                        backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
+                    }
+                }
+                for (Movie movie: backendConnector.getTheater().getUnreleasedCatalog()) {
+                    if (movie.getName().equals(selectedMovie)) {
+                        backendConnector.getTheater().getUnreleasedCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
+                    }
+                }
+                seatGrid(backendConnector, selectedMovie);
+
                 // Make Ticket --> Seat number (infobox), movie name (theater login object), theater location (theater login object)
                 Ticket userTicket = new Ticket(seat, movieName, theaterLocation);
 
@@ -362,7 +375,6 @@ public class MovieBrowser extends JPanel{
             }
             }
         });
-
 
         setVisible(true);
     }
