@@ -329,11 +329,15 @@ public class MovieBrowser extends JPanel{
                     Double ticketCost = 90.0;
 
                     // Set the selected seat status to occupied.
-                    for (Movie movie: theater.getCatalog()) {
-                        if (movie.getName().equals(selectedMovie)) {
-                            theater.getCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
+                    int index = -1; // Initialize index variable
+                    for (int i = 0; i < theater.getCatalog().size(); i++) {
+                        if (theater.getCatalog().get(i).getName().equals(selectedMovie)) {
+                            index = i; // Store the index when a match is found
+                            break; // Exit the loop early once the movie is found
                         }
                     }
+                    theater.getCatalog().get(index).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
+
                     seatGrid(theater, selectedMovie);
 
                     // Make Ticket --> Seat number (infobox), movie name (theater login object), theater location (theater login object)
@@ -367,15 +371,20 @@ public class MovieBrowser extends JPanel{
                 LocalDate currentDate = LocalDate.now();
                 Double ticketCost = 90.0;
 
-                // Set the selected seat status to occupied.
-                for (Movie movie: theater.getCatalog()) {
-                    if (movie.getName().equals(selectedMovie)) {
-                        theater.getCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
+                int index = -1; // Initialize index variable
+                for (int i = 0; i < theater.getCatalog().size(); i++) {
+                    if (theater.getCatalog().get(i).getName().equals(selectedMovie)) {
+                        index = i; // Store the index when a match is found
+                        theater.getCatalog().get(index).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
+                        break; // Exit the loop early once the movie is found
                     }
                 }
-                for (Movie movie: theater.getUnreleasedCatalog()) {
-                    if (movie.getName().equals(selectedMovie)) {
-                        theater.getUnreleasedCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
+
+                for (int i = 0; i < theater.getUnreleasedCatalog().size(); i++) {
+                    if (theater.getUnreleasedCatalog().get(i).getName().equals(selectedMovie)) {
+                        index = i; // Store the index when a match is found
+                        theater.getUnreleasedCatalog().get(index).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
+                        break; // Exit the loop early once the movie is found
                     }
                 }
                 seatGrid(theater, selectedMovie);
