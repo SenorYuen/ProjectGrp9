@@ -331,7 +331,7 @@ public class MovieBrowser extends JPanel{
                         }
                     }
 
-                    if (seatNum <= 0 || seatNum > 20 || theater.getCatalog().get(index).getSeatMap().get(Integer.valueOf(seat) - 1).getTaken()) {
+                    if (seatNum <= 0 || seatNum > 20 || theater.getCatalog().get(index).getSeatMap().get(Integer.valueOf(seat) - 1).getTaken() || theater.getUnreleasedCatalog().get(index).getSeatMap().get(Integer.valueOf(seat) - 1).getTaken()) {
                         JOptionPane.showMessageDialog(null, "Invalid Ticket Number. Please enter a valid number.");
                     } else {
                         // logic for seat being available.
