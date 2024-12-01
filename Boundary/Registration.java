@@ -177,7 +177,7 @@ public class Registration extends JPanel {
                 }
                 // Add username duplicate validation with database
 
-                RegisteredCustomer newRUInstance = new RegisteredCustomer(name, email, passwordFinal, cardNumber);
+                RegisteredCustomer newRUInstance = new RegisteredCustomer(name, email, passwordFinal, cardNumber, null);
                 theater.getUserStorage().add(newRUInstance);
                 Homepage moviePane = new Homepage(mainWindow, theater);
                 mainWindow.setContentPane(moviePane);

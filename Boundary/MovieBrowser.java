@@ -233,6 +233,20 @@ public class MovieBrowser extends JPanel{
                                 LocalDate expired = LocalDate.now();
                                 String curMovie = currReceipt.getMovieName();
 
+                                for (int i = 0; i < theater.getCatalog().size(); i++) {
+                                    if (theater.getCatalog().get(i).getName().equals(selectedMovie)) {
+                                        theater.getCatalog().get(i).getSeatMap().get(Integer.valueOf(currReceipt.getSeatNumber()) - 1).setTaken(false);
+                                        break; // Exit the loop early once the movie is found
+                                    }
+                                }
+                                for (int i = 0; i < theater.getUnreleasedCatalog().size(); i++) {
+                                    if (theater.getUnreleasedCatalog().get(i).getName().equals(selectedMovie)) {
+                                        theater.getUnreleasedCatalog().get(i).getSeatMap().get(Integer.valueOf(currReceipt.getSeatNumber()) - 1).setTaken(false);
+                                        break; // Exit the loop early once the movie is found
+                                    }
+                                }
+                                seatGrid(theater, selectedMovie);
+
                                 for (Movie movie: theater.getCatalog()) {
                                     if (movie.getName().equals(curMovie)) {
                                         movieShowtime = movie.getShowtime();
@@ -249,9 +263,11 @@ public class MovieBrowser extends JPanel{
                                 if (LocalDate.now().isBefore(expired)) {
                                     if (backendConnector.getAuthenticationStatus()) {
                                         JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled. Received 100% refund");
+                                        theater.getReceiptStorage().remove(currReceipt);
                                     }
                                     else {
                                         JOptionPane.showMessageDialog(null, "Ticket " + ticketNum + " cancelled. Received 85% refund");
+                                        theater.getReceiptStorage().remove(currReceipt);
                                     }
                                 }
                                 else {
