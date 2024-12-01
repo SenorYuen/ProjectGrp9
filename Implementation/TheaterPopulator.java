@@ -39,11 +39,23 @@ public class TheaterPopulator {
         ArrayList<Movie> unreleasedCatalog = new ArrayList<>();
         unreleasedCatalog.add(movie3);
 
+        RegisteredCustomer user1 = new RegisteredCustomer(
+        "phil", "phil", "phil", "1234"
+        );
+
+        RegisteredCustomer user2 = new RegisteredCustomer(
+        "dada", "dada", "dada", "5678"
+        );
+
+        ArrayList<RegisteredCustomer> userStorage = new ArrayList<>();
+        userStorage.add(user1);
+        userStorage.add(user2);
 
         Theater theater = new Theater(
             catalog,
             unreleasedCatalog,
-            "Russia"
+            "Russia",
+            userStorage
         );
 
         return theater;
