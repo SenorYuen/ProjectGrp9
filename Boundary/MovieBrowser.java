@@ -317,7 +317,21 @@ public class MovieBrowser extends JPanel{
                 try {
                     int seatNum = Integer.parseInt(seat);
 
-                    if (seatNum <= 0 || seatNum > 20) {
+                    int index = -1; // Initialize index variable
+                    for (int i = 0; i < theater.getCatalog().size(); i++) {
+                        if (theater.getCatalog().get(i).getName().equals(selectedMovie)) {
+                            index = i; // Store the index when a match is found
+                            break; // Exit the loop early once the movie is found
+                        }
+                    }
+                    for (int i = 0; i < theater.getUnreleasedCatalog().size(); i++) {
+                        if (theater.getUnreleasedCatalog().get(i).getName().equals(selectedMovie)) {
+                            index = i; // Store the index when a match is found
+                            break; // Exit the loop early once the movie is found
+                        }
+                    }
+
+                    if (seatNum <= 0 || seatNum > 20 || theater.getCatalog().get(index).getSeatMap().get(Integer.valueOf(seat) - 1).getTaken()) {
                         JOptionPane.showMessageDialog(null, "Invalid Ticket Number. Please enter a valid number.");
                     } else {
                         // logic for seat being available.
