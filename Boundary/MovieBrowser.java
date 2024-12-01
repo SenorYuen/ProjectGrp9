@@ -364,7 +364,7 @@ public class MovieBrowser extends JPanel{
             // If the user confirms their ticket and is a RU, begin creating the payment related objects.
             } else if (choice == JOptionPane.YES_OPTION && backendConnector.getAuthenticationStatus()) {
                 String movieName = selectedMovie;
-                String theaterLocation = "grab from theater";
+                String theaterLocation = theater.getLocation();
                 LocalDate currentDate = LocalDate.now();
                 Double ticketCost = 90.0;
 

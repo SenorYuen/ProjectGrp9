@@ -2,6 +2,7 @@ package Implementation;
 
 import java.util.ArrayList;
 
+// Creates placeholder values in the theater
 public class TheaterPopulator {
 
     public static Theater populateTheater(){
