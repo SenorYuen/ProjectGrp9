@@ -402,7 +402,7 @@ public class MovieBrowser extends JPanel{
                 // make ui thing display stuff, destroy objects. revaldiate page. done.
                 JOptionPane.showMessageDialog(
                     null,
-                    "Payment Successful. A copy of this receipt was emailed to <email from login>" +
+                    "Payment Successful. A copy of this receipt was emailed to you." +
                     "\n\nReceipt ID: " + String.valueOf(userReceipt.getId()) +
                     "\nMovie: " + movieName +
                     "\nSeat: " + seat +
