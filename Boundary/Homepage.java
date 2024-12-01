@@ -118,7 +118,7 @@ public class Homepage extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
                 // Create a bakend session without credentials and create a registration JPanel
-                LoginSession guestForNow = new LoginSession(false, null, null);
+                LoginSession guestForNow = new LoginSession(false, null, null, theater);
 				Registration registerPanel = new Registration(mainWindow, guestForNow, theater);
 				mainWindow.setContentPane(registerPanel);
 				mainWindow.revalidate();
@@ -130,7 +130,7 @@ public class Homepage extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
                 // Create a bakend session with placeholder credentials and create a browser JPanel
-                LoginSession bypassLogin = new LoginSession(false, "Guest", "Guest");
+                LoginSession bypassLogin = new LoginSession(false, "Guest", "Guest", theater);
 				MovieBrowser registerPanel = new MovieBrowser(mainWindow, bypassLogin, theater);
 				mainWindow.setContentPane(registerPanel);
 				mainWindow.revalidate();
@@ -145,7 +145,7 @@ public class Homepage extends JPanel {
                 String enteredPassword = String.valueOf(passwordBox.getPassword());
 
                 // If authenticated, create a backend and a browser final
-                LoginSession authenticatedLogin = new LoginSession(true, enteredUsername, enteredPassword);
+                LoginSession authenticatedLogin = new LoginSession(true, enteredUsername, enteredPassword, theater);
                 MovieBrowser registerPanel = new MovieBrowser(mainWindow, authenticatedLogin, theater);
 				mainWindow.setContentPane(registerPanel);
 				mainWindow.revalidate();
