@@ -1,17 +1,27 @@
 package Boundary;
 
-/*
-* File Name: GUIControl.java
-* Assignment: Final Project
-* Lab section: B02
-* Completed by: Adam Yuen
-* Development Date: November 28, 2024
-*/
+import util.DBConnection;
+import util.Login;
+import util.LoginSession;
 
-// Program is run out of this object
+import javax.swing.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class ProgramRunner {
+    
     public static void main(String[] args) {
-        GUIControl programInstance = new GUIControl();
+        SwingUtilities.invokeLater(() -> {
+            JFrame window = new JFrame("ACMEPLEX Theater Portal");
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            window.setSize(1366, 768);
+            window.setResizable(false);
+            window.setLocationRelativeTo(null);
+            window.setLayout(null);
+
+            Homepage homepage = new Homepage(window);
+            window.setContentPane(homepage);
+            window.setVisible(true);
+        });
     }
 }
-
