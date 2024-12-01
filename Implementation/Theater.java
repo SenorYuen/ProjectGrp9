@@ -17,11 +17,11 @@ public class Theater{
 
 
     // Constructor
-    public Theater(ArrayList<Movie> catalog, ArrayList<Movie> unreleasedCatalog, String location){
+    public Theater(ArrayList<Movie> catalog, ArrayList<Movie> unreleasedCatalog, String location, ArrayList<RegisteredCustomer> userStorage){
         this.catalog = catalog;
         this.unreleasedCatalog = unreleasedCatalog;
         this.location = location;
-
+        this.userStorage = userStorage;
     }
 
     // GETTERS and SETTERS
@@ -39,12 +39,12 @@ public class Theater{
 
     public void setUnreleasedCatalog(ArrayList<Movie> unreleasedCatalog) {
         this.unreleasedCatalog = unreleasedCatalog;
-    } 
+    }
 
     public String getLocation() {
         return location;
     }
-    
+
     public void setLocation (String selectedLocation) {
         this.location = selectedLocation;
     }

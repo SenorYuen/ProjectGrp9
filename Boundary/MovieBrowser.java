@@ -414,6 +414,23 @@ public class MovieBrowser extends JPanel{
                 }
             }
         }
+        for (Movie movie : theater.getUnreleasedCatalog()) {
+            if (movie.getName().equals(selectedMovie)) {
+                ArrayList<Seat> seatMap = movie.getSeatMap();
+
+                for (int i = 0; i < seatMap.size(); i++) {
+                    JTextField seatText = new JTextField("        Seat " + (i + 1));
+                    seatText.setBackground(Color.GREEN);
+
+                    // Check if the seat is taken
+                    if (seatMap.get(i).getTaken()) {
+                        seatText.setBackground(Color.RED);
+                    }
+
+                    seatGrid.add(seatText); // Add to the grid
+                }
+            }
+        }
 
         // Revalidate and repaint the grid
         seatGrid.revalidate();
