@@ -12,8 +12,8 @@ public class Theater{
     private ArrayList<Movie> catalog;
     private ArrayList<Movie> unreleasedCatalog;
     private String location;
-    private ArrayList<Payment> paymentStorage;
-    private ArrayList<RegisteredCustomer> userStorage;
+    private ArrayList<Payment> paymentStorage = new ArrayList<Payment>(1);
+    private ArrayList<RegisteredCustomer> userStorage = new ArrayList<RegisteredCustomer>(1);
 
 
     // Constructor
