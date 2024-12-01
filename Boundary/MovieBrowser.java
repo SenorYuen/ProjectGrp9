@@ -35,10 +35,10 @@ public class MovieBrowser extends JPanel{
     private JLabel annualFeeLabel;
 
     // Constrcutor to create the primary JPanel for booking tickets and whatnot
-    MovieBrowser(JFrame mainWindow, LoginSession backendConnector) {
+    MovieBrowser(JFrame mainWindow, LoginSession backendConnector, Theater theater) {
         tentativeMovieList = new Vector<>(backendConnector.getMovieNames());
         showtimeList = new Vector<>(); // Initialize showtimeList
-        showtimeList.add(backendConnector.getTheater().getCatalog().get(0).getShowtime().toString());
+        showtimeList.add(theater.getCatalog().get(0).getShowtime().toString());
 
         setLayout(null);
         // Label creation for the homepage
@@ -120,12 +120,12 @@ public class MovieBrowser extends JPanel{
                 // If the user is a RU, they get both the unreleased and released catalog of movies.
                 if (backendConnector.getAuthenticationStatus()) {
                     // Iterate through the theater's catalogs to create a single one.
-                    for (Movie movie: backendConnector.getTheater().getUnreleasedCatalog()) {
+                    for (Movie movie: theater.getUnreleasedCatalog()) {
                         if (movie.getName() == selectedMovie) {
                             showtimeList.add(movie.getShowtime().toString());
                         }
                     }
-                    for (Movie movie: backendConnector.getTheater().getCatalog()) {
+                    for (Movie movie: theater.getCatalog()) {
                         if (movie.getName() == selectedMovie) {
                             showtimeList.add(movie.getShowtime().toString());
                         }
@@ -133,7 +133,7 @@ public class MovieBrowser extends JPanel{
                 }
                 // If they are not a RU, they get only the normal seatmap
                 else {
-                    for (Movie movie: backendConnector.getTheater().getCatalog()){
+                    for (Movie movie: theater.getCatalog()){
                         if (movie.getName() == selectedMovie) {
                             showtimeList.add(movie.getShowtime().toString());
                         }
@@ -147,14 +147,14 @@ public class MovieBrowser extends JPanel{
                 showtimeSelector.setBounds(85, 140, 200, 30);
                 add(showtimeSelector);
 
-                seatGrid(backendConnector, selectedMovie);
+                seatGrid(theater, selectedMovie);
 			}
         });
         add(movieSelector);
 
         // Construct a new seatgrid - shows available seats for the current movies
         String selectedMovie = (String) movieSelector.getSelectedItem();
-        seatGrid(backendConnector, selectedMovie);
+        seatGrid(theater, selectedMovie);
 
         // Render a new dropdown for the showtimes of the currently selected movie.
         showtimeSelector = new JComboBox<String>(showtimeList);
@@ -195,7 +195,7 @@ public class MovieBrowser extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
                 // change the current contentpane to the homepage to emulate going back.
-				Homepage homepage = new Homepage(mainWindow);
+				Homepage homepage = new Homepage(mainWindow, theater);
 				mainWindow.setContentPane(homepage);
 				mainWindow.revalidate();
 			}
@@ -242,9 +242,9 @@ public class MovieBrowser extends JPanel{
                 int numberOfOccupiedSeats = 0;
 
                 // Determine the number of occupied seats for a given movie
-                for (Movie movie: backendConnector.getTheater().getCatalog()) {
+                for (Movie movie: theater.getCatalog()) {
                     if (movie.getName().equals(selectedMovie)) {
-                        for (Seat currentSeat: backendConnector.getTheater().getCatalog().get(0).getSeatMap()) {
+                        for (Seat currentSeat: theater.getCatalog().get(0).getSeatMap()) {
                             if (currentSeat.getTaken()) {
                                 numberOfOccupiedSeats++;
                             }
@@ -253,7 +253,7 @@ public class MovieBrowser extends JPanel{
                 }
 
                 // If a movie is in the uncreleased catalog then restrict 90% of the seats
-                for (Movie movie: backendConnector.getTheater().getUnreleasedCatalog()) {
+                for (Movie movie: theater.getUnreleasedCatalog()) {
                     if (movie.getName().equals(selectedMovie) && numberOfOccupiedSeats > 2) {
                         JOptionPane.showMessageDialog(null, "10% of seats for this unreleased movie have already been booked.");
                         return;
@@ -297,12 +297,12 @@ public class MovieBrowser extends JPanel{
                     Double ticketCost = 90.0;
 
                     // Set the selected seat status to occupied.
-                    for (Movie movie: backendConnector.getTheater().getCatalog()) {
+                    for (Movie movie: theater.getCatalog()) {
                         if (movie.getName().equals(selectedMovie)) {
-                            backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
+                            theater.getCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
                         }
                     }
-                    seatGrid(backendConnector, selectedMovie);
+                    seatGrid(theater, selectedMovie);
 
                     // Make Ticket --> Seat number (infobox), movie name (theater login object), theater location (theater login object)
                     Ticket userTicket = new Ticket(seat, movieName, theaterLocation);
@@ -335,17 +335,17 @@ public class MovieBrowser extends JPanel{
                 Double ticketCost = 90.0;
 
                 // Set the selected seat status to occupied.
-                for (Movie movie: backendConnector.getTheater().getCatalog()) {
+                for (Movie movie: theater.getCatalog()) {
                     if (movie.getName().equals(selectedMovie)) {
-                        backendConnector.getTheater().getCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
+                        theater.getCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
                     }
                 }
-                for (Movie movie: backendConnector.getTheater().getUnreleasedCatalog()) {
+                for (Movie movie: theater.getUnreleasedCatalog()) {
                     if (movie.getName().equals(selectedMovie)) {
-                        backendConnector.getTheater().getUnreleasedCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
+                        theater.getUnreleasedCatalog().get(0).getSeatMap().get(Integer.valueOf(seat) - 1).setTaken(true);
                     }
                 }
-                seatGrid(backendConnector, selectedMovie);
+                seatGrid(theater, selectedMovie);
 
                 // Make Ticket --> Seat number (infobox), movie name (theater login object), theater location (theater login object)
                 Ticket userTicket = new Ticket(seat, movieName, theaterLocation);
@@ -380,7 +380,7 @@ public class MovieBrowser extends JPanel{
     }
 
     // Function for creating and rendering a seat map.
-    public void seatGrid(LoginSession backendConnector, String selectedMovie) {
+    public void seatGrid(Theater theater, String selectedMovie) {
         // Creating the seat grid
         seatGrid = new JPanel(new GridLayout(5, 4, 5, 5));
         seatGrid.setBounds(515, 190, 400, 400);
@@ -388,7 +388,7 @@ public class MovieBrowser extends JPanel{
         seatGrid.removeAll(); // Clear existing components
 
         // Find the selected movie from the catalog
-        for (Movie movie : backendConnector.getTheater().getCatalog()) {
+        for (Movie movie : theater.getCatalog()) {
             if (movie.getName().equals(selectedMovie)) {
                 ArrayList<Seat> seatMap = movie.getSeatMap();
 
