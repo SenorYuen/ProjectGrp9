@@ -12,6 +12,7 @@ import javax.swing.*;
 
 import Implementation.LoginSession;
 import Implementation.RegisteredCustomer;
+import Implementation.Theater;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -34,7 +35,7 @@ public class Registration extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    public Registration(JFrame mainWindow, LoginSession backendConnector) {
+    public Registration(JFrame mainWindow, LoginSession backendConnector, Theater theater) {
         setLayout(null);
         // Creating a label for the page title
         header = new JLabel("Registration Page");
@@ -152,13 +153,13 @@ public class Registration extends JPanel {
         backButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Homepage homepage = new Homepage(mainWindow);
+				Homepage homepage = new Homepage(mainWindow, theater);
 				mainWindow.setContentPane(homepage);
 				mainWindow.revalidate();
 			}
 		});
 
-        // Logic to handle amalgamating data and then 
+        // Logic to handle amalgamating data and then
         signUpButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -175,7 +176,7 @@ public class Registration extends JPanel {
                     return;
                 }
                 // Add username duplicate validation with database
-                
+
                 RegisteredCustomer newRUInstance = new RegisteredCustomer(name, email, passwordFinal, cardNumber);
                 // Dump all fields into the database.
 
@@ -188,5 +189,5 @@ public class Registration extends JPanel {
 
         setVisible(true);
     }
-    
+
 }

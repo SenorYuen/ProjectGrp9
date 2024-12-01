@@ -11,6 +11,8 @@ package Boundary;
 import javax.swing.*;
 
 import Implementation.LoginSession;
+import Implementation.Theater;
+import Implementation.TheaterPopulator;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -28,7 +30,8 @@ public class Homepage extends JPanel {
     private JLabel background;
     private static final long serialVersionUID = 1L;
 
-    public Homepage(JFrame mainWindow) {
+    public Homepage(JFrame mainWindow, Theater theater) {
+
         setLayout(null);
         // Label creation for the homepage
         theaterTitle = new JLabel("ACMEPLEX Theater Portal");
@@ -115,8 +118,8 @@ public class Homepage extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
                 // Create a bakend session without credentials and create a registration JPanel
-                LoginSession guestForNow = new LoginSession(false, null, null);
-				Registration registerPanel = new Registration(mainWindow, guestForNow);
+                LoginSession guestForNow = new LoginSession(false, null, null, theater);
+				Registration registerPanel = new Registration(mainWindow, guestForNow, theater);
 				mainWindow.setContentPane(registerPanel);
 				mainWindow.revalidate();
 			}
@@ -127,8 +130,8 @@ public class Homepage extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
                 // Create a bakend session with placeholder credentials and create a browser JPanel
-                LoginSession bypassLogin = new LoginSession(false, "Guest", "Guest");
-				MovieBrowser registerPanel = new MovieBrowser(mainWindow, bypassLogin);
+                LoginSession bypassLogin = new LoginSession(false, "Guest", "Guest", theater);
+				MovieBrowser registerPanel = new MovieBrowser(mainWindow, bypassLogin, theater);
 				mainWindow.setContentPane(registerPanel);
 				mainWindow.revalidate();
 			}
@@ -140,10 +143,10 @@ public class Homepage extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 String enteredUsername = loginBox.getText();
                 String enteredPassword = String.valueOf(passwordBox.getPassword());
-                
+
                 // If authenticated, create a backend and a browser final
-                LoginSession authenticatedLogin = new LoginSession(true, enteredUsername, enteredPassword);
-                MovieBrowser registerPanel = new MovieBrowser(mainWindow, authenticatedLogin);
+                LoginSession authenticatedLogin = new LoginSession(true, enteredUsername, enteredPassword, theater);
+                MovieBrowser registerPanel = new MovieBrowser(mainWindow, authenticatedLogin, theater);
 				mainWindow.setContentPane(registerPanel);
 				mainWindow.revalidate();
             }

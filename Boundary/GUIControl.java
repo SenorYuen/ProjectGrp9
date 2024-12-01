@@ -10,6 +10,9 @@ package Boundary;
 
 import javax.swing.JFrame;
 
+import Implementation.TheaterPopulator;
+import Implementation.Theater;
+
 public class GUIControl extends JFrame {
     private static Homepage homepage;
     private static JFrame window;
@@ -17,8 +20,9 @@ public class GUIControl extends JFrame {
 
     GUIControl() {
         // Create the JFrame in which all panels will be placed on.
+        Theater theater = TheaterPopulator.populateTheater();
         window = new JFrame();
-        homepage = new Homepage(window);
+        homepage = new Homepage(window, theater);
         window.setTitle("title");
         window.setResizable(false);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
