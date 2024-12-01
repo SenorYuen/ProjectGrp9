@@ -278,19 +278,20 @@ public class MovieBrowser extends JPanel{
                 int numberOfOccupiedSeats = 0;
 
                 // Determine the number of occupied seats for a given movie
-                for (Movie movie: theater.getCatalog()) {
-                    if (movie.getName().equals(selectedMovie)) {
-                        for (Seat currentSeat: theater.getCatalog().get(0).getSeatMap()) {
-                            if (currentSeat.getTaken()) {
+                for (int i = 0; i < theater.getUnreleasedCatalog().size(); i++) {
+                    if (theater.getUnreleasedCatalog().get(i).getName().equals(selectedMovie)) {
+                        for (Seat currSeat: theater.getUnreleasedCatalog().get(i).getSeatMap()) {
+                            if (currSeat.getTaken()) {
                                 numberOfOccupiedSeats++;
                             }
                         }
+                        break; // Exit the loop early once the movie is found
                     }
                 }
 
                 // If a movie is in the uncreleased catalog then restrict 90% of the seats
                 for (Movie movie: theater.getUnreleasedCatalog()) {
-                    if (movie.getName().equals(selectedMovie) && numberOfOccupiedSeats > 2) {
+                    if (movie.getName().equals(selectedMovie) && numberOfOccupiedSeats >= 2) {
                         JOptionPane.showMessageDialog(null, "10% of seats for this unreleased movie have already been booked.");
                         return;
                     }
