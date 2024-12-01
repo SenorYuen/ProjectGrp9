@@ -3,15 +3,9 @@ package Implementation;
 import java.util.ArrayList;
 
 public class LoginSession {
-    private Theater theater;
     private ArrayList<String> movieNames;
-    private String enteredUsername;
-    private String enteredPassword;
     private boolean authenticated;
-
-    public Theater getTheater(){
-        return theater;
-    }
+    private Person currentUser;
 
     public boolean getAuthenticationStatus() {
         return this.authenticated;
@@ -22,18 +16,23 @@ public class LoginSession {
     }
 
     public void setEnteredUsername(String username) {
-        this.enteredUsername = username;
+        this.currentUser.setEmail(username);
     }
 
     public void setEnteredPassword(String password) {
-        this.enteredPassword = password;
+        this.currentUser.setPassword(password);
     }
 
     // Constructor
-    public LoginSession(boolean auth, String username, String password){
-        this.enteredUsername = username;
-        this.enteredPassword = password;
+    public LoginSession(boolean auth, String username, String password, Theater theater){
         this.authenticated = auth;
+        if (this.authenticated) {
+            for (RegisteredCustomer user: theater.getUserStorage()) {
+                if ((user.getEmail().equals(username)) && (user.getPassword().equals(password))) {
+                    currentUser = user;
+                }
+            }
+        }
         movieNames = new ArrayList<String>();
         theater = TheaterPopulator.populateTheater();
         for(Movie movie: theater.getCatalog()){

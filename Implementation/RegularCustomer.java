@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class RegularCustomer implements Person{
     private String email;
+    private String password;
 
     // Constructor
     public RegularCustomer(String email){
@@ -26,6 +27,10 @@ public class RegularCustomer implements Person{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPassword(String desiredPassword) {
+        this.password = desiredPassword;
     }
 
     @Override

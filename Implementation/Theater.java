@@ -12,6 +12,9 @@ public class Theater{
     private ArrayList<Movie> catalog;
     private ArrayList<Movie> unreleasedCatalog;
     private String location;
+    private ArrayList<Payment> paymentStorage;
+    private ArrayList<RegisteredCustomer> userStorage;
+
 
     // Constructor
     public Theater(ArrayList<Movie> catalog, ArrayList<Movie> unreleasedCatalog, String location){
@@ -44,6 +47,10 @@ public class Theater{
     
     public void setLocation (String selectedLocation) {
         this.location = selectedLocation;
+    }
+
+    public ArrayList<RegisteredCustomer> getUserStorage() {
+        return this.userStorage;
     }
 
     // End of GETTERS and SETTERS
