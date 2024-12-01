@@ -23,6 +23,10 @@ public class LoginSession {
         this.currentUser.setPassword(password);
     }
 
+    public void setCurrentUser(Person currentUser) {
+        this.currentUser = currentUser;
+    }
+
     // If the user is registered, obtain card number.
     public String getCard() {
         if (currentUser instanceof RegisteredCustomer) {

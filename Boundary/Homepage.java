@@ -11,6 +11,7 @@ package Boundary;
 import javax.swing.*;
 
 import Implementation.LoginSession;
+import Implementation.RegisteredCustomer;
 import Implementation.Theater;
 import Implementation.TheaterPopulator;
 
@@ -145,10 +146,20 @@ public class Homepage extends JPanel {
                 String enteredPassword = String.valueOf(passwordBox.getPassword());
 
                 // If authenticated, create a backend and a browser final
-                LoginSession authenticatedLogin = new LoginSession(true, enteredUsername, enteredPassword, theater);
-                MovieBrowser registerPanel = new MovieBrowser(mainWindow, authenticatedLogin, theater);
-				mainWindow.setContentPane(registerPanel);
-				mainWindow.revalidate();
+
+                for (RegisteredCustomer regUser: theater.getUserStorage()) {
+                    if (regUser.getEmail().equals(enteredUsername) && regUser.getPassword().equals(enteredPassword)) {
+                        LoginSession authenticatedLogin = new LoginSession(true, enteredUsername, enteredPassword, theater);
+                        MovieBrowser registerPanel = new MovieBrowser(mainWindow, authenticatedLogin, theater);
+                        mainWindow.setContentPane(registerPanel);
+                        mainWindow.revalidate();
+                        return;
+                    }
+                    else {
+                        continue;
+                    }
+                }
+                JOptionPane.showMessageDialog(null, "Incorrect Credentials");
             }
         });
         setVisible(true);

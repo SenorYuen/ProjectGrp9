@@ -399,7 +399,7 @@ public class MovieBrowser extends JPanel{
                     "\nMovie: " + movieName +
                     "\nSeat: " + seat +
                     "\nPrice: $" + ticketCost +
-                    "\nCard Number: " + "PLACEHOLDER NUMBER" +
+                    "\nCard Number: " + backendConnector.getCard() +
                     "\nDate: " + currentDate.toString()
                 );
             } else if (choice == JOptionPane.NO_OPTION) {
