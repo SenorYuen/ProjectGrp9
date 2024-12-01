@@ -5,6 +5,8 @@ public class LoginSession {
     private int personId;
     private String userType;
     private String status;
+    private String cardNumber;  // Add cardNumber field
+
 
     public LoginSession() {
         this.isAuthenticated = false;
@@ -25,6 +27,14 @@ public class LoginSession {
 
     public void setPersonId(int personId) {
         this.personId = personId;
+    }
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getCardNumber() {
+        // Assuming card number is stored in a variable `cardNumber` in LoginSession
+        return this.cardNumber;
     }
 
     public String getUserType() {
