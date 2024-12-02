@@ -14,4 +14,3 @@ public class ProgramRunner {
         GUIControl programInstance = new GUIControl();
     }
 }
-
